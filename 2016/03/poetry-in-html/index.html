@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chris Forster: Poetry in HTML
+</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="cforster.com Atom feed" />
+  </head>
+  <body>
+
+    <article class="post">
+      <div class="frontmatter">
+	<h1 class="title"><p>Poetry in HTML</p>
+</h1>
+
+	<time class="timestamp" datetime="2016-03-20" >Mar 20, 2016</time>
+      </div>
+
+      <div class="post-content">
+	<p>If you consult the types of varieties of lists that HTML is capable of representing <span class="marginnote"></span> it may be surprising to realize that HTML still lacks a single, unambiguous, semantic solution to the problem of representing <em>poetry</em>. For a variety of reasons, I’ve found myself having to recapitulate the problems with how existing markup systems represent poetry. In this post I’m going to try summarize the options and explain why I think none is really yet up to the task.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>For purposes of demonostration, let’s take the opening stanza Marianne’s Moore’s “Poetry.”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Here is an image of how it appeared in the pages of the Egoist Press edition:</p>
+<figure>
+<img src="/images/moore_egoist_poetry.jpg" alt="“Page image of the poem ‘Poetry’ by Marianne Moore.”" /><figcaption aria-hidden="true">“Page image of the poem ‘Poetry’ by Marianne Moore.”</figcaption>
+</figure>
+<p><span class="marginnote">Moore, Marianne. <em>Poems</em>. London: Egoist Press, 1921. [<a href="https://archive.org/stream/mariannepoem00moorrich">archive.org</a>]</span></p>
+<p>Moore’s long lines and wonderfully idiosyncratic use of poetic form make her poetry a valuable test case. That first “stanza” of this poem consists of 6 lines; indented at four different levels. The first <em>line</em> is not indented at all; subsequent lines are indented 1, 1, 2, 2, 3 spaces respectively.</p>
+<h2 id="solution-1-preformatted-tags">Solution 1: Preformatted Tags</h2>
+<p>A reasonable solution is to simply use “preformatted” (<code>pre</code>) tags.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;pre&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>I, too, dislike it: there are things that are important beyond all this fiddle.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   Reading it, however, with a perfect contempt for it, one discovers in</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   it after all, a place for the genuine.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      Hands that can grasp, eyes</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      that can dilate, hair that can rise</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         if it must, these things are important not because a</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/pre&gt;</span></span></code></pre></div>
+<p>This will produce output like this:</p>
+<pre>
+I, too, dislike it: there are things that are important beyond all this fiddle.
+   Reading it, however, with a perfect contempt for it, one discovers in
+   it after all, a place for the genuine.
+      Hands that can grasp, eyes
+      that can dilate, hair that can rise
+         if it must, these things are important not because a
+</pre>
+<p>This has the unfortunate effect of not wrapping; if we use a <code>div</code> and the CSS class, <code>whitespace: pre-wrap</code>, we can get a <em>slightly</em> better result. Note, however, that the wrap starts at the left most edge of the containing block. This makes it harder to tell</p>
+<h2 id="solution-2-custom-paragraphs">Solution 2: Custom Paragraphs</h2>
+<p>We could solve this problem by putting each line in its own <code>&lt;p&gt;</code> and using CSS and classes to ensure they display properly. Here’s the HTML:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&#39;poetry&#39;</span><span class="kw">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline&#39;</span><span class="kw">&gt;</span>I, too, dislike it: there are things that are important beyond all this fiddle.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline indent1&#39;</span><span class="kw">&gt;</span>Reading it, however, with a perfect contempt for it, one discovers in<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline indent1&#39;</span><span class="kw">&gt;</span>it after all, a place for the genuine.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline indent2&#39;</span><span class="kw">&gt;</span>Hands that can grasp, eyes<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline indent2&#39;</span><span class="kw">&gt;</span>that can dilate, hair that can rise<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&#39;poetryline indent3&#39;</span><span class="kw">&gt;</span>if it must, these things are important not because a<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+<p>And, here’s the CSS:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.poetryline</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-left</span>: <span class="dv">5</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-indent</span>: <span class="dv">-5</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-top</span>: <span class="dv">0</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-bottom</span>: <span class="dv">0</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">.indent1</span> { <span class="kw">margin-left</span>: <span class="dv">7</span><span class="dt">em</span><span class="op">;</span>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">.indent2</span> { <span class="kw">margin-left</span>: <span class="dv">9</span><span class="dt">em</span><span class="op">;</span>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">.indent3</span> { <span class="kw">margin-left</span>: <span class="dv">11</span><span class="dt">em</span><span class="op">;</span>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">.indent4</span> { <span class="kw">margin-left</span>: <span class="dv">13</span><span class="dt">em</span><span class="op">;</span>}</span></code></pre></div>
+<p>Which produces:</p>
+<div class="example">
+<div class="poetry-paragraphs">
+<style type='text/css' scoped>
+.poetryline {
+       margin-left: 5em;
+       text-indent: -5em;
+       margin-top: 0em;
+       margin-bottom: 0em;
+}
+.indent1 { margin-left: 7em;}
+.indent2 { margin-left: 9em;}
+.indent3 { margin-left: 11em;}
+.indent4 { margin-left: 13em;}
+</style>
+<p class="poetryline">
+I, too, dislike it: there are things that are important beyond all this fiddle.
+</p>
+<p class="poetryline indent1">
+Reading it, however, with a perfect contempt for it, one discovers in
+</p>
+<p class="poetryline indent1">
+it after all, a place for the genuine.
+</p>
+<p class="poetryline indent2">
+Hands that can grasp, eyes
+</p>
+<p class="poetryline indent2">
+that can dilate, hair that can rise
+</p>
+<p class="poetryline indent3">
+if it must, these things are important not because a
+</p>
+</div>
+</div>
+<h2 id="solution-3-stylized-list">Solution 3: Stylized List</h2>
+<p>A post on the <a href="https://www.w3.org/html/wg/wiki/PoeticSemantics">w3c HTML wiki</a> summarizes the situation this way:</p>
+<blockquote>
+<p>The best approach in HTML4/XHTML1.x is either to use a definition list (currently excluded in HTML5, but in common use for many authors with advanced semantical abilities - there is a lot of poetry marked up in wikipedia with definition lists for example) or to use ul/ol. ol is already a complete solution.</p>
+</blockquote>
+<h1 id="closing-peroration">closing peroration…</h1>
+<p>The</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>The poem is famous for being radically redacted by Moore; when it appeared in Moore’s 1967 <em>Complete Poems</em>, she had reduced it to only its first three lines.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+      </div>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript"
+	      src="http://disqus.com/forums/chrisforstersblog/embed.js">
+      </script>
+      <noscript>
+	<a href="http://chrisforstersblog.disqus.com/?url=ref">View the discussion thread.</a>
+      </noscript>
+      <a href="http://disqus.com" class="dsq-brlink">
+	blog comments powered by <span class="logo-disqus">Disqus</span>
+      </a>
+    </article>
+  </body>
+
+</html>

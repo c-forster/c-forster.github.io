@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chris Forster: About 2100 Words About Pollen
+</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="cforster.com Atom feed" />
+  </head>
+  <body>
+
+    <article class="post">
+      <div class="frontmatter">
+	<h1 class="title"><p>About 2100 Words About Pollen</p>
+</h1>
+
+	<time class="timestamp" datetime="2016-10-19" >Oct 19, 2016</time>
+      </div>
+
+      <div class="post-content">
+	<p>There has been some interesting writing coming through my feed on text markup and related questions.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> I have a long post I’ve been trying to put together about descriptive/semantic markup more broadly.<span class="marginnote">Unfortunately that post bogged down in Walter Ong, and <a href="https://en.wikipedia.org/wiki/Abjad">abjads</a>… I hope to retrieve it from the abyss someday.</span> But I wanted to write something to bring <a href="http://pollenpub.com">Pollen</a> to the attention of folks interested in text encoding, particularly from a humanities perspective. This post isn’t an introduction to Pollen (<a href="http://docs.racket-lang.org/pollen/index.html">a very good introduction</a> already exists), but instead a gentle suggestion that, if you are interested in text-encoding, Pollen might be worth looking at.<span class="marginnote">If you’re interested, for instance, in Markdown, the author of Pollen has the best summary of its weaknesses (and, implicitly, why Pollen is a superior option): <a href="http://docs.racket-lang.org/pollen/second-tutorial.html#%28part._the-case-against-markdown%29">The Case Against Markdown</a>.</span></p>
+<h2 id="markdownteipollen">Markdown/TEI/Pollen</h2>
+<p>Unlike document authoring, or software documentation, my own interest in text encoding often hinges on representing old texts (usually poems, essays, or works of fiction). So, let’s consider such an example.</p>
+<figure>
+<img src="/images/aldington_influence-of-james-joyce.png" alt="Richard Aldington, “The Influence of James Joyce.”" /><figcaption aria-hidden="true">Richard Aldington, “The Influence of James Joyce.”</figcaption>
+</figure>
+<p>Richard Aldington’s “The Influence of James Joyce” is an early response to Joyce’s <em>Ulysses</em>; it is perhaps better remembered because T. S. Eliot cites it in his more famous “<em>Ulysses</em>, Order, and Myth.” How might we represent this text?</p>
+<p>If we were using Pandoc’s version of Markdown, we could do something like:</p>
+<pre><code>---
+title: &quot;The Influence of Mr. James Joyce&quot;
+author: Richard Aldington
+...
+
+*&quot;La vie n&#39;est de soy ny bien ny mal;
+c&#39;est la place du bien et du mal, selon
+que vous la leur faictes.&quot;*---Montaigne.
+
+# I
+
+Obviously no valid criticism can be made
+of Mr. Joyce&#39;s *Ulysses* until the whole
+work has been published in book form. It
+seems to me that the serial publication
+has lasted an abnormally long time, and
+that there is some excuse for my impatience
+in speaking of *Ulysses* while it is still
+fragmentary.</code></pre>
+<p>You could obviously expand that metadata to include additional details (such a place of publication, etc). But Markdown offers no (easy) way to mark the distinction between the epigraph and the text. Moreover, the use of italics here is completely unsemantic; we end up “marking up” how the text appeared, rather than capturing what the appearance meant—i.e. <em>Ulysses</em> is italicized because it is a title; the epigraph for other reasons (because it is an epigraph? Because it is French in an English-language text? Who can say…)</p>
+<p>Real sticklers might insist that we’ve lost other pieces of information: the small caps in “Montaigne” and the opening word of the text; that the original didn’t simply indicate an author, but used the word “By,” to do so, and marked it with different types sizes; that the title featured an fl ligature. But, at some point, the granularity of one’s description must stop. But even if we’re inclined (for whatever purposes are marking up this text) to brush aside these concerns as pedantry, Markdown does some seem to offer a pretty coarse descriptive vocabulary—far coarser than HTML, of which it is a subset.</p>
+<p>Text encoders in the humanities might reasonably suggest the TEI standard of text markup and description. Depending on the particular schema one uses, might look like this. (The following is, I think, valid according to the <a href="https://github.com/TEIC/TEI-Simple">TEI Simple</a> schema.)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?xml</span> version=&quot;1.0&quot; encoding=&quot;utf-8&quot;<span class="kw">?&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;TEI</span><span class="ot"> xmlns=</span><span class="st">&quot;http://www.tei-c.org/ns/1.0&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;teiHeader&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;fileDesc&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;titleStmt&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;title&gt;</span>The Influence of Mr. James Joyce<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;/titleStmt&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;publicationStmt&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>       <span class="kw">&lt;p&gt;</span>This public domain text is made available through the sheer good-heartedness of Chris.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;/publicationStmt&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;sourceDesc&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;bibl&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>               <span class="kw">&lt;author&gt;</span>Richard Aldington<span class="kw">&lt;/author&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>               <span class="kw">&lt;title</span><span class="ot"> level=</span><span class="st">&quot;a&quot;</span><span class="kw">&gt;</span>The Influence of Mr. James Joyce<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>               <span class="kw">&lt;title</span><span class="ot"> level=</span><span class="st">&quot;m&quot;</span><span class="kw">&gt;</span>The English Review<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>               <span class="kw">&lt;date</span><span class="ot"> when=</span><span class="st">&quot;1921-04&quot;</span><span class="kw">&gt;</span>April, 1921<span class="kw">&lt;/date&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>               <span class="kw">&lt;biblScope</span><span class="ot"> unit=</span><span class="st">&quot;pg&quot;</span><span class="kw">&gt;</span>333-341<span class="kw">&lt;/biblScope&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;/bibl&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;/sourceDesc&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/fileDesc&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/teiHeader&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;text&gt;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;body&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>       <span class="kw">&lt;epigraph</span><span class="ot"> xml:lang=</span><span class="st">&quot;fr&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;cit&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>       <span class="kw">&lt;quote&gt;</span>La vie n&#39;est de soy ny bien ny mal; c&#39;est la place du bien et du mal, selon que vous la leur faictes.<span class="kw">&lt;/quote&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>       <span class="kw">&lt;bibl&gt;&lt;hi</span><span class="ot"> rendition=</span><span class="st">&quot;smallcaps&quot;</span><span class="kw">&gt;</span>Montaigne<span class="kw">&lt;/hi&gt;</span>.<span class="kw">&lt;/bibl&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;/cit&gt;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;note</span><span class="ot"> resp=</span><span class="st">&quot;cf&quot;</span><span class="kw">&gt;</span>The quotation, which might be roughly translated as &quot;Life itself is neither good nor bad; it is the place of good and evil, according to what you make it,&quot; comes from chapter 19 of Montaigne&#39;s <span class="kw">&lt;title&gt;</span>Essais<span class="kw">&lt;/title&gt;</span> titled in some English translation, &quot;That to Study Philosophy is to Learn to Die.&quot;<span class="kw">&lt;/note&gt;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>       <span class="kw">&lt;/epigraph&gt;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;head&gt;</span>I<span class="kw">&lt;/head&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>          <span class="kw">&lt;p&gt;&lt;hi</span><span class="ot"> rendition=</span><span class="st">&quot;smallcaps&quot;</span><span class="kw">&gt;</span>Obviously<span class="kw">&lt;/hi&gt;</span> no valid criticism can be made of Mr. Joyce&#39;s <span class="kw">&lt;title&gt;</span>Ulysses<span class="kw">&lt;/title&gt;</span> until the whole work has been published in book form. It seems to me that the serial publication has lasted an abnormally long time, and that there is some excuse for my impatience in speaking of <span class="kw">&lt;title&gt;</span>Ulysses<span class="kw">&lt;/title&gt;</span> while it is still fragmentary.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/text&gt;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/TEI&gt;</span></span></code></pre></div>
+<p>Whoo boy—TEI is verbose. Things like XML and namespace declarations clutter the file; the tree structure ends up being deeply nested quickly. And to be valid, there are things (like a <code>publicationStmt</code>) which, while good practice, are often not topmost in one’s mind when trying to represent a particular text (and so I invented the weird prose above). But, all the semantics we wished to capture (including the nitpickiness about smallcaps) is there. The structure is clearer. The represention of the epigraph is, I think, clearly superior. It separates the epigraph structurally from the rest rest of the document, and includes extra information, like a translation.</p>
+<p>TEI is text-encoding big guns. As the preeminent way to encode humanities texts, TEI is, I think, unambigously the <em>best</em> way to encode text <strong><em>if</em></strong> you are considering only the semantic quality of the text itself. If, though, you are concerned with <em>authoring</em>, the power of TEI brings with it the burden of creating well-formed XML documents. Moreover, while the <a href="http://www.tei-c.org/release/doc/tei-xsl/">TEI stylesheets</a> are powerful tools for transforing XML to your output format of choice, they too are heavy-duty tools. And, customizing them often involves using XSLT.</p>
+<p>To oversimplify this (deliberately caricatured) contrast, one has the <strong>ease</strong> but relative <strong>semantic poverty</strong> of Markdown, against the <strong>complexity</strong> but undeniable <strong>richness</strong> of TEI. I hope that’s more or less fair. Here is how one <em>might</em> approach this text in Pollen.</p>
+<pre><code>#lang pollen
+
+◊(define-meta title    &quot;The Influence of James Joyce&quot;)
+◊(define-meta author   &quot;Richard Aldington&quot;)
+
+◊epigraph[#:author &quot;Montaigne&quot;]{La vie n&#39;est de soy ny bien ny mal; c&#39;est la place du bien et du mal, selon que vous la leur faictes.}
+
+◊head{I}
+
+Obviously no valid criticism can be made of Mr. Joyce&#39;s ◊title{Ulysses} until the whole work has been published in book form. It seems to me that the serial publication has lasted an abnormally long time, and that there is some excuse for my impatience in speaking of ◊title{Ulysses} while it is still fragmentary.</code></pre>
+<p>You can see a couple things here. What angle brackets are to XML, the lozenge character (<code>◊</code>) is to Pollen (at least by default). Like Markdown, Pollen has helper functions to <a href="https://docs.racket-lang.org/pollen/Decode.html#%28def._%28%28lib._pollen%2Fdecode..rkt%29._decode-paragraphs%29%29">detect paragraphs</a>, so paragraphs don’t need to be marked up—merely separated by two newline characters. In this example <code>head</code>, <code>title</code>, and <code>epigraph</code> are all pollen “tags.” And, like XML elements which can have attributes, pollen tags can have something like attributes, as in the example above.</p>
+<p>Pollen <em>looks</em> like a middle ground, between Markdown and TEI;: it’s easier to read/author than XML, but more descriptive. This is though a beguiling impression. The real strength of Pollen is that it is 100% customizable.<span class="marginote">To be clear, the <a href="http://www.tei-c.org/Roma/">TEI is customizable</a> too.</span> The tag names I used above are not defined by Pollen. Instead, I use whatever tags I want, and then later can define appropriate behaviors for them when the text is processed.</p>
+<p>The real trick here is that what looks like a markup language, akin to Markdown, HTML, or even TEI XML, is slyly an entire programming language. By contrast, when working with Markdown or TEI, you need something else to process it. Markdown began with a <a href="https://daringfireball.net/projects/markdown/">Perl script</a>; now you might use <a href="http://pandoc.org">Pandoc</a>. Working with TEI, you would most likely use XSLT to transform it (though, of course, you <em>could</em>—heaven help you—use Python, Ruby, whatever). Pollen, though, is a <a href="https://en.wikipedia.org/wiki/Domain-specific_language">domain-specific language</a> build ontop of Racket. Which is to say, that you have the full power of a complete programming language lurking just beneath the surface. Pollen “tags” are transformed into functions that processes the tag’s content. Consider this example:<span class="marginnnote">This example is deliberately clumsy; one would, presumably, use one tag for a <code>poem</code>, and then a series of <code>line</code> tags. Also, this is from Auden’s wonderful “Song of the Ogres.”</span></p>
+<pre><code>◊poetryline{Little fellow, you’re amusing,}
+◊poetryline{Stop before you end by losing}
+◊poetryline{Your shirt:}</code></pre>
+<p>Text-markup folks would describe the above example as a lines of poetry, “marked up with <code>line</code> tags.” One might with equal (or greater) profit, describes this a function, called <code>poetryline</code> which takes text as its argument.</p>
+<p>These <a href="http://docs.racket-lang.org/pollen/third-tutorial.html#%28part._.Tags___tag_functions%29">“tag functions”</a> are the heart of the Pollen model of document processing. You use any type of tag you want, and then you can author tag functions that process the content of those tags. You write those functions in <a href="http://racket-lang.org/">Racket</a>, which is the parent language of Pollen. Matthew Butterick, Pollen’s author, captures this in the slogan: “The book is a program.”<span class="marginnote">As a literature professor, and someone sensitive to the history of the media and the materiality of the book, I’d be tempted to revise this as “The <strong>text</strong> is a program.”</span></p>
+<p>Pollen is thoroughly customizable and empowers people who author to use whatever semantics are most appropriate to their documents. This power comes with the responsibility for authoring those “tag functions.” One can use <code>native_divs</code> and <code>native_spans</code>, with a <a href="http://pandoc.org/scripting.html">custom Pandoc filter</a> in Pandoc to accomplish similar things; or one can cutomize a TEI schema, and then use XSLT to process your TEI to output. Pollen, though, true to its Lisp-y parentage, brings code and data into close proximity. It is not transparently better than either of the alternative I’ve described here (Markdown/TEI); but it provides a different way of balancing these benefits and costs.</p>
+<p>I’ve glossed over the specifics here. By default, for instance, Pollen assumes, that you are targeting HTML as your output format. In part as a consequence of this choice, the default behavior for any tag is to simply wrap a tag around its content. So, if you write <code>◊title{Song of the Ogres}</code> it will simply produce <code>&lt;title&gt;Song of the Ogres&lt;/title&gt;</code>. But you can rewrite that <code>◊title</code> function to do anything.</p>
+<p>A while ago <a href="http://cforster.com/2015/06/markdown-skepticism/">I complained about Markdown</a> and wondered if a more semantically rich alternative would be possible (an abbreviated syntax for TEI, in the same way Markdown is an abbreviated HTML syntax). Pollen, I think, could easily be such a tool—and is much better than anything I had imagined.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Daniel Allington brings a refreshing skepticism to <a href="http://www.danielallington.net/2016/09/the-latex-fetish/">the LaTeX fetish</a>. Martin Eve offers <a href="https://www.martineve.com/2016/09/14/of-latex-and-labour/">a response</a>. There have also been some interesting discussions surrounding the TEI lately. Hugh Cayless, in a <a href="http://blogs.library.duke.edu/dcthree/2016/08/04/theres-new-whale-town/">blog post</a> introducing <a href="http://teic.github.io/CETEIcean/">CETEIcean</a> (a Javascript library that uses Web Components to transform TEI to a browser consumable format), notes (fairly, I think) that “XSLT is a niche technology that is mostly frozen in the state it was in 15 years ago.” Meanwhile, a discussion (in blog posts, and on the TEI mailing list) is considering <a href="https://listserv.brown.edu/archives/cgi-bin/wa?A2=ind1609&amp;L=TEI-L&amp;F=&amp;S=&amp;P=23293">“Whither TEI?”</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+      </div>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript"
+	      src="http://disqus.com/forums/chrisforstersblog/embed.js">
+      </script>
+      <noscript>
+	<a href="http://chrisforstersblog.disqus.com/?url=ref">View the discussion thread.</a>
+      </noscript>
+      <a href="http://disqus.com" class="dsq-brlink">
+	blog comments powered by <span class="logo-disqus">Disqus</span>
+      </a>
+    </article>
+  </body>
+
+</html>

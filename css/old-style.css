@@ -1,0 +1,455 @@
+h1, h2, h3 { 
+    font-family	: 'PT Sans Narrow', sans-serif;
+    font-weight	: 800;
+    line-height	: 1.1em;
+    margin: 0;
+}
+
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.2em; }
+h3 { 
+/*  font-size: 1.2em;  */
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+article.post {
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    border-bottom: solid black 3px;
+}
+
+.post-content h1, h2 {
+    padding-top: 0.5em;
+    margin-top: 0.5em;
+}
+
+article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+
+  max-width: 100%;
+  /* just in case, to force correct aspect ratio */
+  height: auto !important;
+}
+
+}
+
+p {
+    margin-bottom: 0;
+    color: #444;
+    line-height: 1.5em;
+}
+
+p + p {
+    text-indent: 2em;
+    margin-top: 0;
+}
+
+p.centered {
+    text-align: center;
+}
+
+p.caption {
+  text-align: center;
+  
+  font-size: 0.7em;
+  color: #c0c0c0;
+}
+
+
+.frontmatter {
+    display: block;
+}
+
+.frontmatter h2 {
+   font-size: 2.0em;
+
+}
+
+#title {  
+         background-color: #fff;
+         color: #444;
+         text-decoration: none;
+         word-spacing: normal;
+         text-align: left;
+         letter-spacing: 0;
+         border-bottom: 1px;
+}
+
+html { 
+/*    font-family: 'Crimson Text', serif;  */
+/*    font-family: 'Gentium Basic', serif; */
+    font-family: 'PT Serif', serif;
+    font-size: 15pt;
+    color: #444;
+    text-decoration: none;
+    word-spacing: normal;
+
+    text-align: left;
+    letter-spacing: 0;
+
+    width: 70%;   
+/*    width: 700px; */
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+body { 
+    padding: 20px;
+    background-color: #fff;
+
+}
+
+#container {
+  margin: 10px auto;
+  padding: 0;
+  width: 70%;
+}
+
+/*#post-content { 
+  width			: 600px; 
+
+  padding-top		: 10px;
+  padding-left		: 40px;
+  padding-right		: 40px;
+  padding-bottom	: 10px;
+
+  font-size		: 1.0em;                   
+  line-height		: 1.5em;
+  font-family: 'PT Serif', serif;
+  font-family		:'Open Sans', Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif; 
+}
+*/
+
+#disqus { 
+}
+
+a { text-decoration: none; }
+a:link		{ color: #03f; }
+a:visited	{ color: #69f; }
+a:hover		{ color: #00f; }
+a:active	{ color: #fc0; }
+
+time { 
+  color: #c00;
+}
+
+#masthead { 
+/*  line-height: 80%; */
+/*  background-color: gray;  */
+/*  margin: 5px;
+  padding: 10px;
+  border-bottom: solid 2px black;
+*/
+    overflow: hidden;
+    border-bottom: 1px #444 solid;
+    margin-bottom: 1em;
+}
+
+#masthead h1 { 
+/*  color:#01568A; */
+/*  color: #404040; */
+/*  font-weight:700; */
+  line-height:0.6em; 
+/*  text-shadow:rgba(44, 44, 44, 0.296875) 0 1px 3px; */
+/*  text-shadow: #c00000 0 1px 3px; */
+/*  text-shadow: 0px 5px 3px #ccc; */
+  font-size: 3em;
+}
+
+
+#masthead h1, h3 {
+  margin: 2px 0px 0px 0px;
+  padding: 5px 0px 0px 0px;
+  float: left;
+}
+
+#masthead h3 { 
+  line-height:0.6em;
+  color: #222;
+ }
+
+#masthead h4 { 
+  margin: 0px 0px 0px 50px;
+  padding: 0px;
+}
+
+#masthead ul {
+    text-align: right;
+}
+
+#masthead li {
+    text-align: left;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+/*
+#footer { 
+  clear: both;
+  color: #444;
+  font-size: 0.8em;
+  text-align: center;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #bbb;
+  line-height: 1.2em;
+  padding: 5px;
+  margin: 5px;
+
+}
+*/
+
+
+#license { 
+  clear: both;
+  color: #555;
+/*  text-align: left; */
+  line-height: 1.2em;
+  padding: 10px;
+  margin: 10px;
+}
+
+#license img {
+    vertical-align: middle;
+    padding: 5px;
+}
+
+header img {
+    display: inline;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+footer { 
+  clear: both;
+/*  width: 60%; */
+  color: #888;
+  font-size: 0.6em;
+  text-align: center;
+  line-height: 1em;
+}
+
+#colophon {
+    text-align: left;
+}
+
+#colophon p {
+    padding: 5px;
+    text-indent: 0em;
+}
+
+#colophon .narrow {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+
+#twitter { 
+           
+}
+
+#twitter_update_list { 
+  list-style: none;
+  padding-left: 40px;
+}
+
+
+/* Pinboard Links from pinboard.js script. */
+#pinboard_links { 
+  list-style: none;
+  font-size: 0.8em;
+}
+
+a.pin-tag {
+    font-size: 0.3em;
+}
+
+a:link.pin-tag  {
+    color: #c0c0c0;
+}
+
+a:visited.pin-tag {
+    color: #a0a0a0;
+}
+
+a.pin-description {
+    color: gray;
+}
+a.pin-title {
+    font-weight: bold;
+}
+
+/* Navigation List Styles. */
+#navlist li { 
+   font-size: 0.6em;
+   display: inline;
+   list-style-type: none;
+   padding-right: 20px;
+ }
+
+
+.post-content .post-time { 
+   text-align: right;
+   color: #ccc;
+   font-size: 0.6em;
+   padding: 15px;
+   margin: 15px;
+ }
+
+
+/* 
+ Pull Quotes
+*/
+.insertright { 
+   width: 40%;
+   float: right;
+   padding-left: 10px;
+}
+
+.insertleft { 
+   width: 40%;
+   float: left;
+   padding-right: 10px;
+}
+
+.highlight { 
+  line-height: 1em;
+  background: black;
+  font-size: 1em;
+  color: white;   
+  padding: 3px;
+  overflow: auto;
+  padding: 1em;
+  border: 1px solid;
+
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+code { 
+  font-size: 0.8em;
+}
+
+.date {
+/*    float: right;   */
+/*    margin-left: -20%; */
+/*    font-size: 0.7em; */
+}
+
+#masthead {
+    margin-left: -50px;
+}
+
+#masthead h1 {
+    font-size: 3.4em;
+}
+
+
+/* footer a:link, a:visited, #masthead a:link, a:visited { */
+    /* borrowed from: http://stackoverflow.com/questions/6008324/fade-effect-on-link-hover */
+/*    -o-transition: 1s;*/
+/*    -ms-transition:1s; */
+/*    -moz-transition:1s;*/
+/*    -webkit-transition:1s; */
+    /* ...and now for the proper property */
+/*    transition:1s; */
+
+/*    color: #57534A; */
+/*    text-decoration:none; */
+/* } */
+
+
+#masthead a:hover, a:active {
+    color: red;
+}
+
+.email, .twitter {
+    font-family: Monaco,monospace;
+}
+
+
+blockquote { 
+
+  display:block;
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+  
+  line-height: 1.2;
+  color: #666;
+  
+  /*Borders - (Optional)*/
+  border-left: 10px solid #a00;
+  border-right: 2px solid #a00;
+  
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+}
+
+blockquote::before {
+  content: "\201C"; /*Unicode for Left Double Quote*/
+  
+  /*Font
+  font-family: Georgia, serif; */
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+  
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top:5px;
+}
+
+blockquote::after {
+  /*Reset to make sure*/
+  content: "";
+}
+
+blockquote p + p {
+    text-indent: 2em;
+    margin-top: 0;
+}
+
+
+.marginnote {
+    float: left;
+    margin-left: -15em;
+    width: 13em;
+    font-size: 0.7em;
+    line-height: 1.2em;
+    text-indent: 0;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td {
+    width: 10em;
+}
+
+ 
+.epigraph {
+    width: 50%;
+    text-align: right;
+    margin-bottom: 2em;
+    text-weight: bold;
+    text-indent: 0;
+}
+
+footer img {
+    display: inline;
+}
+
+.poetry {
+    white-space: pre;
+    padding-left: 1.5em;
+}

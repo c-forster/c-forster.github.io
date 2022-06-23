@@ -1,0 +1,61 @@
+h1, h2, h3 { 
+/*         font-family: Molengo, sans-serif; */
+/*         font-family: Rokkitt, sans-serif; */
+/*  font-family: Merriweather,serif; */
+/*  font-family: 'Hammersmith One', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700; */
+}
+
+#cv-head { 
+  font-family: 'Ubuntu', sans-serif;
+/*  font-weight: 700;*/
+  font-size: 35px;
+  padding-top: 10px;
+  width: 720px;
+}
+
+#cv-head .summary { 
+  padding-left: 550px;  
+/*  text-align: right; */
+}
+
+#cv { 
+  text-align: left;
+  padding-left: 50px;
+
+  font-family: 'Vollkorn', Georgia, Times, serif;
+  font-size: 18px;
+  line-height: 25px;
+}
+}
+
+.cv-entry { 
+  width: 600px;
+}
+
+
+.cv-entry-head { 
+  float: left;
+  width: 50px;
+  font-family: 'Hammersmith One', sans-serif; 
+  font-size: 20px;
+  color: #dc143c; 
+}
+
+.cv-entry-content { 
+  padding-left: 120px;
+/*  float: right; */
+  width: 600px; 
+  border-style: solid;
+  border-color: #777;
+  border-width: 0px 0px 1px 0px;
+
+}
+
+.summary { 
+  font-size: 11px;
+  line-height: 1em;
+}
+
+

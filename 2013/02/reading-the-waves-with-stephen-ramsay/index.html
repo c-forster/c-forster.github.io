@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chris Forster: With Thanks to Woolf and emacs, Reading ‘The Waves’ with Stephen Ramsay
+</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="cforster.com Atom feed" />
+  </head>
+  <body>
+
+    <article class="post">
+      <div class="frontmatter">
+	<h1 class="title"><p>With Thanks to Woolf and emacs, Reading ‘The Waves’ with Stephen Ramsay</p>
+</h1>
+
+	<time class="timestamp" datetime="2013-02-13" >Feb 13, 2013</time>
+      </div>
+
+      <div class="post-content">
+	<p>I am currently teaching a graduate course (<a href="http://630dh.cforster.com">eng630: “Digital Humanities”: Emerging Tools and Debates in Literary Study</a>) and, as much as possible, I’m trying to make clear the mechanics behind some of the text-analysis in the works we’re reading. So, this week, as I prepared to discuss Stephen Ramsay’s <em>Reading Machines</em>, I wanted to reproduce some of the analysis done there. The first chapter, for instance, offers a <em><a href="http://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a></em> reading of Woolf’s <em>The Waves</em>. Here is how Ramsay describes it:</p>
+<blockquote>
+<p>It is possible—and indeed an easy matter—to use a computer to transform Woolf’s novel into lists of tokens in whcih each list represents the words spoken by the characters ordered from most distinctive to least distinctive term. <em>Tf-idf</em>, one of the classic formulas from the field of information retrieval, endeavours to generate lists of distinctive terms for each document in a corpus. We might therefore conceive of Woolf’s novel as a ‘corpus’ of separate documents (each speaker’s monologue representing a separate document), and use the formual to factor the presence of a word in a particular speaker’s vocabulary against the presence of the word in other speakers’ vocabularies. (11)</p>
+</blockquote>
+<p>This post summarizes how I tried to do just that, and the different results I got. I’m not sure what accounts for the differences from Ramsay’s (and Sara Steger’s) results; I’ll try to show you what I mean below. In a future post I’ll use the same “method” on aa different text (spoiler: it’s <em>Ulysses</em>).</p>
+<p>Readers familiar with <em>The Waves</em>, and the demands of text processing, will immediately recognize why the analysis of the characters’ monologues would present itself as a tractable problem (“indeed an easy matter”). While, in theory, one could do a similar analysis for any novel (or any work with multiple speakers), the narrative structure of <em>The Waves</em> makes it particularly available to this sort of analysis. Chapters describing the process of the sun across the sky in the course of a single day alternate with chapters in which characters speak in semi-monologue about their lives. This device itself is the novel’s most obvious departure from the conventions of narrative fiction, but it also makes it “an easy matter” (well, maybe for <a href="http://xkcd.com/208/">some people</a>) to extract these dialogues. If you had good, marked-up data, you could easily extract this information (as Lincoln Mullen shows in <a href="http://lincolnmullen.com/blog/parsing-tei-files-in-ruby-with-nokogiri/">this post</a>, working with the <a href="http://www.folgerdigitaltexts.org/">Folger’s TEI Shakespeare</a>); but if all you have is unstructured plaintext, you’re going to have a problem. Woolf’s novel though, even in plaintext, carries a good deal of this informational structure in its novelistic form (there is, <a href="http://books.google.com/books?id=eCfinn-Ye00C">as they say</a>, no such thing as an unmarked text).</p>
+<p>Here is a chunk of <em>The Waves</em>, quoted at random:</p>
+<blockquote>
+<p>‘Where is Bernard?’ said Neville. ‘He has my knife. We were in the tool-shed making boats, and Susan came past the door… Now we must drop our toys. Now we must go in together. The copy-books are laid out side by side on the green baize table.’</p>
+<p>‘I will not conjugate the verb,’ said Louis, ’until Bernard has said it…</p>
+</blockquote>
+<p>There is always a short phrase (starting with an opening single quotation mark—i.e. an apostrophe—and a capital letter), some text, a closing single quote (variously punctuated), the word <code>said</code> followed by a character name and some punctuation mark, an opening single quotation mark and some words. This single “monologue” may continue into the next paragraph (which would then, consistent with convention, be opened by a single quotation mark—i.e. an apostrophe). Finally the monologue is closed by an apostrophe before the narrative turns to another character (and another opening apostro-quote), or to one of those sun-dappled interludes.</p>
+<p>Whew; describing what is so obvious to any reader of the text is painful (as, I imagine, is reading my description of it), but it is this highly structured convention which makes Woolf’s novel comparatively available to processing. Even absent TEI (or other) markup, Woolf’s convention creates an ad-hoc ordered hierarchy of content objects, at least for the reader interested in the characters’ monologues. Someone with more regex-fu than I have might be able to cut out character dialogue programmaticly.○<span class="marginnote">I think the regex would go something like <code>/'([\^,]+,)' said Louis, '(*)'/</code> and would capture, as $1 and $2 the material the character says… in theory.</span> I tried to sort this out, but quickly gave up. Instead, I manually paged through the text and pasted together all the text said by a single character, so that from that opening apostro-quote to the closing apstro-quote would all be one one line, and the phrase <code>[character name] said</code> would occur somewhere near the front of that line.○<span class="marginnote">In emacs, checking twitter and listening to podcasts, this represented an hour and a half’s labor; labor, mind you, which was sufficiently mindless that I enjoyed a beer. Though, as you’ll see below, <em>this fact</em> led me to redo the entire thing.</span></p>
+<p>And so, with thanks to Woolf for her highly structured departure from novelistic convention, and to emacs for keybindings that made this somewhat less loathsome, you’re ready to extract your data. It is now simply a matter of grepping the file for each character:</p>
+<pre><code>grep &#39;said Louis&#39; the-waves.txt &gt; characters/louis.txt`
+grep &#39;said Neville&#39; the-waves.txt &gt; characters/neville.txt`
+...</code></pre>
+<p>And so on.○<span class="marginnote">The text Ramsay &amp; Steger use, and that I also used, comes from <a href="http://gutenberg.net.au/pages/woolf.html">Project Gutenberg Australia</a>. Because of copyright, I cannot share the processed data I am working with—and, as you’ll see, this extraction process is a crucial step. If you’d be interested in seeing or using this data, to save yourself the hour and a half’s labor, however, just drop me an email. I have relatives in Australia who would be happy to host you during the term of your interaction with this copyrighted material.</span></p>
+<p>At which point, the actual, real analysis begins. Here is the code I used, in <code>R</code> (using the <code>tm</code> package), to get my results. It assumes that that each individual’s speech is contained in a single text file in a directory immediately below the working directory, called ‘characters’ (that’s what all that grepping above was about).</p>
+<pre><code># This code relies on the tm (text mining) package
+library(&#39;tm&#39;)
+
+# Create a corpus based on the subdirectory
+characters &lt;- Corpus(DirSource(&#39;characters/&#39;))
+
+# To aid processing lets make everything lower-case
+characters &lt;- tm_map(characters,tolower)
+
+# And remove punctuation
+characters &lt;- tm_map(characters,removePunctuation)
+
+# And we&#39;ll remove stopwords - this step, is optional. But in the version 
+# of the code I&#39;m pasting here I removed them, in an effort (to no avail, 
+# alas!) to match Ramsay &amp; Steger&#39;s result.
+characters &lt;- tm_map(characters,removeWords, stopwords(&#39;english&#39;))
+
+# Now, we create a Document Term Matrix - that is, a set of the
+# the frequencies for each word in each document. The secret
+# sauce is that control=list(weighting=weightTfIdf) line, which
+# asks that those not be raw counts, but tfidf scores.
+dtm &lt;- DocumentTermMatrix(characters,   control=list(weighting=weightTfIdf))</code></pre>
+<p>And here is just a taste of what that looks like. (This code asks <code>R</code>○<span class="marginnote">Personify much?</span> to let me see the 45th through 55th terms in the matrix (the terms are arranged alphabetically) for all texts.○<span class="marginnote">You access the matrix by requesting row and column: <code>matrix[row, column]</code>; so the empty row field requests all rows (that is, all texts), and columns (which represent words) 45 through 55 (a range chosen entirely at random).</p>
+<pre><code>&gt;Inspect(dtm[,45:55])
+A document-term matrix (6 documents, 11 terms)
+
+Non-/sparse entries: 16/50
+Sparsity           : 76%
+Maximal term length: 13 
+Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+
+             Terms
+Docs               account     accounts   accretions accumulating accumulation
+  bernard.txt 0.0002033962 0.0002033962 0.0001247118 0.0002033962 0.0002033962
+  jinny.txt   0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+  louis.txt   0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+  neville.txt 0.0000000000 0.0000000000 0.0004414937 0.0000000000 0.0000000000
+  rhoda.txt   0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+  susan.txt   0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+             Terms
+Docs          accumulations     accuracy   accurately      achieve         acid
+  bernard.txt  0.0002033962 0.0002033962 0.0000000000 0.0001247118 0.0000000000
+  jinny.txt    0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+  louis.txt    0.0000000000 0.0000000000 0.0000000000 0.0004378349 0.0004378349
+  neville.txt  0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0004414937
+  rhoda.txt    0.0000000000 0.0000000000 0.0007776662 0.0000000000 0.0000000000
+  susan.txt    0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000
+             Terms
+Docs           acknowledge
+  bernard.txt 0.0000786844
+  jinny.txt   0.0000000000
+  louis.txt   0.0002762431
+  neville.txt 0.0002785515
+  rhoda.txt   0.0000000000
+  susan.txt   0.0000000000</code></pre>
+<p>So, this shows us, for instance, that Bernard, Louis, and Neville, all use the word acknowledge (Jinny, Rhoda, and Susan don’t); and Louis and Neville use it more than Bernard (but at the exact rate as each other).</p>
+<p>At this point, we’ve got the data. All that’s needed is a little <code>R</code> data-finesse to get it back out in the order we want it. I’m quite new to <code>R</code>, so I may be missing the better/more obvious way to do this, but this way seems to work. I load the data into a matrix, and then extract it into lists (I think I’m getting my <code>R</code> data types right), ordered by the word’s score. We can then output as many (score, term) pairs from the re-ordered lists that we want (say, the top 24 terms).</p>
+<pre><code>m           &lt;- as.matrix(dtm)
+
+bernard     &lt;- sort(m[1,], decreasing=TRUE)
+jinny       &lt;- sort(m[2,], decreasing=TRUE)
+louis       &lt;- sort(m[3,], decreasing=TRUE)
+neville     &lt;- sort(m[4,], decreasing=TRUE)
+rhoda       &lt;- sort(m[5,], decreasing=TRUE)
+susan       &lt;- sort(m[6,], decreasing=TRUE)
+
+
+&gt;louis[1:24]
+    western      accent     grained        thou        wilt       beast 
+0.006426702 0.005691854 0.004284468 0.004284468 0.004284468 0.003570390 
+   boasting        nile     average      clerks         oak      stamps 
+0.003502680 0.003502680 0.002856312 0.002856312 0.002762431 0.002762431 
+ australian        boys    pitchers       steel      beaten     bobbing 
+0.002627010 0.002209945 0.002189175 0.002189175 0.002142234 0.002142234 
+    custard  eatingshop     england       eyres  fourthirty         ham 
+0.002142234 0.002142234 0.002142234 0.002142234 0.002142234 0.002142234 
+
+&gt; bernard[1:24]
+  thats     hampton        lady   curiosity      letter        ones 
+0.002237358 0.001870677 0.001870677 0.001830566 0.001830566 0.001745965 
+    elderly      heaven     married    observed       byron     phrases 
+0.001627170 0.001627170 0.001627170 0.001627170 0.001621254 0.001610960 
+     dinner      willow      phrase         fin      simple    describe 
+0.001496542 0.001496542 0.001495004 0.001423774 0.001423774 0.001371830 
+       self       stick       sense      nature    thinking      canopy 
+0.001371830 0.001371830 0.001288768 0.001247118 0.001247118 0.001220377 
+
+&gt; neville[1:24]
+      story        ones      doomed immitigable      papers       cheep 
+0.003342618 0.003090456 0.002880181 0.002880181 0.002880181 0.002207469 
+ perfection       camel      detect   hosepipes      hubbub       loads 
+0.002207469 0.002160136 0.002160136 0.002160136 0.002160136 0.002160136 
+     mallet      marvel   squirting        boys       byron     founder 
+0.002160136 0.002160136 0.002160136 0.001949861 0.001765975 0.001765975 
+      scene shakespeare       stair      abject   admirable        ajax 
+0.001765975 0.001765975 0.001671309 0.001440091 0.001440091 0.001440091 
+
+&gt; jinny[1:24]
+     tunnel    prepared   billowing        game      native       peers 
+0.003833041 0.003194201 0.003125710 0.003125710 0.003125710 0.003125710 
+    quicker  melancholy      bodies        band       bodys     cabinet 
+0.003125710 0.002555361 0.002121992 0.002083807 0.002083807 0.002083807 
+     coach        crag      dazzle      deftly    equipped    eyebrows 
+0.002083807 0.002083807 0.002083807 0.002083807 0.002083807 0.002083807 
+     felled     glasses        jump     lockets    matthews    murmured 
+0.002083807 0.002083807 0.002083807 0.002083807 0.002083807 0.002083807 
+
+&gt; rhoda[1:24]
+    oblong        dips       tiger      fuller      themoh     swallow 
+0.005443664 0.003888331 0.003337767 0.003110665 0.003110665 0.002860943 
+    fallen   suspended      cliffs     garland  manybacked     minnows 
+0.002707581 0.002384119 0.002332999 0.002332999 0.002332999 0.002332999 
+       pond   structure      terror       bunch        foam   moonlight 
+0.002332999 0.002332999 0.002105897 0.001907295 0.001907295 0.001907295 
+      party      puddle       dream       pools     violets     amorous 
+0.001907295 0.001907295 0.001805054 0.001805054 0.001805054 0.001555332 
+
+&gt; susan[1:24]
+    kitchen      setter     washing  windowpane        bury        cart 
+0.006213103 0.004053254 0.004053254 0.004053254 0.003136025 0.003106551 
+       gate      horses       apron     seasons    squirrel        beds 
+0.003106551 0.003106551 0.003039940 0.003039940 0.003039940 0.002485241 
+     butter       clean         wet      winter        baby        boil 
+0.002485241 0.002485241 0.002485241 0.002063764 0.002026627 0.002026627 
+   cabbages    carbolic       clara      cradle        eggs      ernest 
+0.002026627 0.002026627 0.002026627 0.002026627 0.002026627 0.002026627 </code></pre>
+<p>My data doesn’t quite match Ramsay &amp; Steger’s (qtd. in Ramsay 13); look at the Louis data to see what I mean (I’ve reordered the terms alphabetically so that you can see the similarities and differences more easily):</p>
+<h2 id="louis">Louis</h2>
+<table>
+<tr>
+<th>
+Ramsay <br /> &amp; Steger
+</th>
+<th>
+Me
+</th>
+</tr>
+<tr>
+<td width="30em">
+accent
+</td>
+<td width="30em">
+accent
+</td>
+</tr>
+<tr>
+<td>
+attempt
+</td>
+<td>
+</td>
+</td>
+<tr>
+<td>
+australian
+</td>
+<td>
+australian
+</td>
+</tr>
+<tr>
+<td>
+average
+</td>
+<td>
+average
+</td>
+</tr>
+<tr>
+<td>
+beast
+</td>
+<td>
+beast
+</td>
+</tr>
+<tr>
+<td>
+beaten
+</td>
+<td>
+beaten
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+boasting
+</td>
+</tr>
+<tr>
+<td>
+bobbing
+</td>
+<td>
+bobbing
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+boys
+</td>
+</tr>
+<tr>
+<td>
+clerks
+</td>
+<td>
+clerks
+</td>
+</tr>
+<tr>
+<td>
+custard
+</td>
+<td>
+custard
+</td>
+</tr>
+<tr>
+<td>
+discord
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+disorder
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+eating-shop
+</td>
+<td>
+eatingshop
+</td>
+</tr>
+<tr>
+<td>
+england
+</td>
+<td>
+england
+</td>
+</tr>
+<tr>
+<td>
+eyres
+</td>
+<td>
+eyres
+</td>
+</tr>
+<tr>
+<td>
+four-thirty
+</td>
+<td>
+fourthirty
+</td>
+</tr>
+<tr>
+<td>
+grained
+</td>
+<td>
+grained
+</td>
+</tr>
+<tr>
+<td>
+ham
+</td>
+<td>
+ham
+</td>
+<tr>
+<td>
+mr
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+nile
+</td>
+<td>
+nile
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+oak
+</td>
+</tr>
+<tr>
+<td>
+pitchers
+</td>
+<td>
+pitchers
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+stamps
+</td>
+</tr>
+<tr>
+<td>
+steel
+</td>
+<td>
+steel
+</td>
+</tr>
+<tr>
+<td>
+thou
+</td>
+<td>
+thou
+</td>
+</tr>
+<tr>
+<td>
+western
+</td>
+<td>
+western
+</td>
+</tr>
+<tr>
+<td>
+wilt
+</td>
+<td>
+wilt
+</td>
+</tr>
+</table>
+<p>The terms <code>fourthirty</code> and <code>eatingshop</code> are victims here of the way <code>R</code> removed punctuation. <code>R</code> can also explain one other of the differences: Ramsay’s list has the word <code>mr</code>, which my list lacks. <code>mr</code> is on the list of stopwords I removed from the text. But the others? I don’t have any explanation for those. Ramsay’s list has these words, which my list lacks (in addition to <code>mr</code>): <em>attempt</em>, <em>discord</em>, and <em>disorder</em>. And my list has <em>oak</em>, <em>stamp</em>, <em>boys</em>, and <em>boasting</em>, which his lacks.</p>
+<p>Well, so, okay; but pretty good, right? Well, maybe not. It only gets worse for the other characters. Here is a summary of the discrepancies for the other characters:</p>
+<h2 id="bernard-4-shared">Bernard (4 Shared)</h2>
+<p>Here my list and Ramsay &amp; Steger’s are <em>very</em> different.</p>
+<p>The lists share only four terms: <em>letter</em>, <em>curiosity</em>, <em>simple</em>, and <em>canopy</em>.</p>
+<p>Ramsay &amp; Steger’s then has: <em>arrive, bandaged, bowled, brushed, buzzing, complex, concrete, deeply, detachment, final, getting, hoot, hums, important, low, moffat, rabbit, thinks, tick, tooth</em></p>
+<p><em>important</em> would be removed by my stoplist… the rest though should otherwise be in my list.</p>
+<p>But mine has: <em>thats, hampton, lady, ones, elderly, heaven, married, observed, byron, phrases, dinner, willow, phrase, fin, describe, self, stick, sense, nature, thinking</em>.</p>
+<p>Let’s look at some of the words and try to sort this out; <em>hoot</em> seems a pretty unique word. Going back through the text, I find seven instances of <em>hoot</em> or <em>hoots</em>. They breakdown this way by character:</p>
+<ul>
+<li><strong>Louis</strong>: ‘a siren hoots’</li>
+<li><strong>Bernard</strong>: ‘But now list; tick, tick; hoot, hoot; the world has hailed us back to it… Then tick, tick (the clock); then hoot, hoot (the cars)’; ‘a siren hoots’</li>
+<li><strong>Rhoda</strong>: ‘the steamer hoots’</li>
+</ul>
+<p>Well, <em>hoot</em> seems unique to Bernard. Okay, let me jump back into R.</p>
+<pre><code>&gt;inspect(dtm[,c(&#39;hoot&#39;)])
+A document-term matrix (6 documents, 1 terms)
+
+Non-/sparse entries: 1/5
+Sparsity           : 83%
+Maximal term length: 4 
+Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+
+             Terms
+Docs                  hoot
+  bernard.txt 0.0008135849
+  jinny.txt   0.0000000000
+  louis.txt   0.0000000000
+  neville.txt 0.0000000000
+  rhoda.txt   0.0000000000
+  susan.txt   0.0000000000</code></pre>
+<p>Just so that we aren’t confused, lets grab the raw counts (rather than the <em>tfidf</em> scores).</p>
+<pre><code>&gt; raw &lt;- DocumentTermMatrix(characters)
+&gt; inspect(raw[,c(&#39;hoot&#39;)])
+A document-term matrix (6 documents, 1 terms)
+
+Non-/sparse entries: 1/5
+Sparsity           : 83%
+Maximal term length: 4 
+Weighting          : term frequency (tf)
+
+             Terms
+Docs          hoot
+  bernard.txt    4
+  jinny.txt      0
+  louis.txt      0
+  neville.txt    0
+  rhoda.txt      0
+  susan.txt      0</code></pre>
+<p>Well, that’s no help then; <em>hoot</em> is unique to Bernard. At this point I begin to suspect something unpleasant. Maybe in my manual data munging, I bollocks’d something. Obviously, It seems like I got the occurrences of <em>hoots</em> in there, attributed to the right person (though maybe I deleted some other <em>hoots</em>?); but if I deleted something, or double pasted something, that could change the complexion of corpus as a whole, and so dilute the score (or inflate the score of some of these other terms showing up in my list).</p>
+<p>So, at this point I went back and reprocessed the file again to insure I didn’t break anything. I used this bit of elisp (courtesy of <a href="http://lists.gnu.org/archive/html/help-gnu-emacs/2010-05/msg00586.html">this</a>) to remove (I included it in a macro for a first pass) hard newlines within a paragraph:</p>
+<pre><code>(defun remove-line-breaks ()
+  &quot;Remove line endings in a paragraph.&quot;
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))</code></pre>
+<p>And I ran it again. My scores shifted ever so slightly, but my top terms for Bernard remained the same.</p>
+<p>Back in <code>R</code>, let’s compare my lowest rank term with <em>hoot</em> again:</p>
+<pre><code>&gt;inspect(dtm[,c(&#39;canopy&#39;,&#39;hoot&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 2/10
+Sparsity           : 83%
+Maximal term length: 6 
+Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+
+             Terms
+Docs               canopy         hoot
+  bernard.txt 0.001219801 0.0008132009
+  jinny.txt   0.000000000 0.0000000000
+  louis.txt   0.000000000 0.0000000000
+  neville.txt 0.000000000 0.0000000000
+  rhoda.txt   0.000000000 0.0000000000
+  susan.txt   0.000000000 0.0000000000
+&gt; inspect(raw[,c(&#39;canopy&#39;,&#39;hoot&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 2/10
+Sparsity           : 83%
+Maximal term length: 6 
+Weighting          : term frequency (tf)
+
+             Terms
+Docs          canopy hoot
+  bernard.txt      6    4
+  jinny.txt        0    0
+  louis.txt        0    0
+  neville.txt      0    0
+  rhoda.txt        0    0
+  susan.txt        0    0</code></pre>
+<p>That is to say, <em>canopy</em>, based on my raw scores, does look more distinctive than <em>hoot</em>. What about <em>moffat</em> (from <em>Mrs Moffat</em> in the text○<span class="marginnote">So, if <code>mr</code> showed up in their analysis, why not <code>mrs</code> here? Because other characters talk about other Mrses—Mrs Crane, Mrs Constable.</span>) which ranks high on Ramsay &amp; Steger’s list, but not at all on mine.</p>
+<pre><code>inspect(dtm[,c(&#39;moffat&#39;,&#39;canopy&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 2/10
+Sparsity           : 83%
+Maximal term length: 6 
+Weighting          : term frequency - inverse document frequency (normalized)     (tf-idf)
+
+             Terms
+Docs               moffat      canopy
+  bernard.txt 0.001219801 0.001219801
+  jinny.txt   0.000000000 0.000000000
+  louis.txt   0.000000000 0.000000000
+  neville.txt 0.000000000 0.000000000
+  rhoda.txt   0.000000000 0.000000000
+  susan.txt   0.000000000 0.000000000
+&gt; inspect(raw[,c(&#39;moffat&#39;,&#39;canopy&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 2/10
+Sparsity           : 83%
+Maximal term length: 6 
+Weighting          : term frequency (tf)
+
+             Terms
+Docs          moffat canopy
+  bernard.txt      6      6
+  jinny.txt        0      0
+  louis.txt        0      0
+  neville.txt      0      0
+  rhoda.txt        0      0
+  susan.txt        0      0
+ </code></pre>
+<p>So <code>moffat</code>’s score is just the same as <code>canopy</code> (but there are a lot of terms with that score, and terms with the same score are then ranked alphabetically, so it gets pushed off our top 24 list<span class="marginnote">Ramsay &amp; Steger’s scores are likewise ranked alphabetically when they have equal scores; have a look at those lists on page 13, and you’ll see islands of alphabetical ordering.</span>).</p>
+<p>So, let me jump back to my initial, raw file; I check there, and <em>Moffat</em> indeed occurs 6 times.</p>
+<p>So what on earth is going on here? At this point, I don’t know. Here are, I think, the possibilities. The fact that the greatest discrepancy comes from the character with the most monologue data is perhaps meaningful, but <em>how</em> it’s meaningful is not obvious. So:</p>
+<ul>
+<li>Perhaps, despite two attempts to get this data all set, I bollocks’d something that is upsetting the scores.</li>
+<li>Perhaps Ramsay &amp; Steger stemmed their data; I haven’t got the stemmer working in <code>R</code> properly yet, so that could account for a difference (but terms like <em>grained</em> and <em>bobbing</em> appear on their list, and don’t appear to have been stemmed).</li>
+<li>Could the interlude chapters be upsetting things? I discard them from my analysis entirely. If they were included they might change the overall complexion.</li>
+<li>While I am very wary of suggesting Ramsay &amp; Steger’s data is wrong, I will note that <em>if</em> they tried to manipulate this data using regex, the data itself isn’t consistent. There are cases where paragraphs are missing opening apostro-quote marks (four of them by my count) and a paragraph missing a closing apostro-quote. Depending on how you built your regex, these could throw things off and produce the dilution effect I am worried about.</li>
+</ul>
+<p>After tinkering for a bit, I suspected that this might be so. But looking at the raw counts for my data makes me doubt that. One thing you might suspect, if carving up the text into characters’ monologues were the problem, would be that some key term might be misattributed; but, for instance, my raw counts of <em>catullus</em> seem consistent with Ramsay &amp; Steger’s results:</p>
+<pre><code>&gt; inspect(dtm[,c(&#39;story&#39;,&#39;catullus&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 5/7
+Sparsity           : 58%
+Maximal term length: 8 
+Weighting          : term frequency - inverse document frequency (normalized)     (tf-idf)
+
+             Terms
+Docs                 story    catullus
+  bernard.txt 0.0011797090 0.000124653
+  jinny.txt   0.0000000000 0.000000000
+  louis.txt   0.0002763958 0.000000000
+  neville.txt 0.0031438302 0.002076189
+  rhoda.txt   0.0000000000 0.000000000
+  susan.txt   0.0000000000 0.000000000
+&gt; inspect(raw[,c(&#39;story&#39;,&#39;catullus&#39;)])
+A document-term matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 5/7
+Sparsity           : 58%
+Maximal term length: 8 
+Weighting          : term frequency (tf)
+
+             Terms
+Docs          story catullus
+  bernard.txt    15        1
+  jinny.txt       0        0
+  louis.txt       1        0
+  neville.txt    12        5
+  rhoda.txt       0        0
+  susan.txt       0        0</code></pre>
+<p>That is, Ramsay &amp; Steger think Catullus is distinctive for Neville. And, indeed, it appears to be so. The difference between my results and theirs the <em>tfidf</em> score—that is, in <em>how</em> distinctive it is. If their corpus were differently constructed than mine in some way, it might affect <em>how</em> distinctive it is.</p>
+<p>So, there may be a data carving problem; who miscarved though is not obvious from this data, I don’t think. It is also possible that there may be some algorithmic difference; I am using the <em>tf-idf</em> algorithm built into R as a sort of black box. My scores are very different from the one’s Ramsay &amp; Steger share on pg. 12. So we’re definitely doing <em>something</em> different. And that might account for these differences. What clear I need to do is return to algorithm to better understand what’s going on here.</p>
+<p>For now, though, I don’t know. I’ll here just summarize the data for the rest of the characters.<span class="marginnote">These are using the reprocessed data, so they may be a little different from above; there were no differences in top terms for Louis or Bernard, and these scores were extracted using exactly the same code as above.</span></p>
+<h2 id="neville-12-shared">Neville (12 Shared)</h2>
+<ul>
+<li><strong>Shared</strong>: doomed, immitigable, papers, camel, detect, hubbub, loads, mallet, marvel, abject, admirable, ajax</li>
+<li><strong>Just Ramsay &amp; Steger</strong>: catullus, bookcase, bored, expose, incredible, lack, shoots, squirting, waits, stair, aloud</li>
+<li><strong>Just mine</strong>: boys, byron, cheep, founder, hosepipes, ones, perfection, scene, shakespeare, story</li>
+</ul>
+<h2 id="jinny-20-shared">Jinny (20 Shared)</h2>
+<ul>
+<li><strong>Shared</strong>: tunnel, prepared, melancholy, billowing, game, native, peers, quicker, band, cabinet, coach, crag, dazzle, deftly, equipped, eyebrows, felled, jump, lockets</li>
+<li><strong>Just Ramsay &amp; Steger</strong>: fiery, victory, banners, frightened, gaze</li>
+<li><strong>Just mine</strong>: bodies, bodys, matthews, murmured, prepare</li>
+</ul>
+<h2 id="rhoda-13-shared">Rhoda (13 Shared)</h2>
+<ul>
+<li><strong>Shared</strong>: oblong, dips, bunch, fuller, party, cliffs, manybacked, minnows, pond, structure, tiger, swallow, bow</li>
+<li><strong>Just Ramsay &amp; Steger</strong>: moonlight, them— (<strong>this result indicates that we’re handling puncutation differently</strong>…), allowed, empress, fleet, garland, immune, wonder, africa, amorous, attitude</li>
+<li><strong>Just mine</strong>: caverns, chirp, choke, column, fallen, foam, pools, puddle, suspended, terror, violets</li>
+</ul>
+<h2 id="susan-16-shared">Susan (16 Shared)</h2>
+<ul>
+<li><strong>Shared</strong>: setter, washing, apron, squirrel, windowpane, kitchen, baby, bitten, boil, cabbages, carbolic, clara, cradle, eggs, ernest, seasons</li>
+<li><strong>Just Ramsay &amp; Steger</strong>: cow, pear, betty, hams, hare, lettuce, locked, maids</li>
+<li><strong>Just mine</strong>: beds, bury, butter, cart, clean, gate, wet, winter</li>
+</ul>
+<p>Oh, and here is the breakdown of the amount of text I have for each character:</p>
+<pre><code>wc *.txt
+      46   32608  182921 bernard.txt
+      33    6331   34467 jinny.txt
+      46    8905   49588 louis.txt
+      39   10011   55543 neville.txt
+      40    8147   44839 rhoda.txt
+      34    6131   33023 susan.txt
+     238   72133  400381 total</code></pre>
+<p>Bernard has the most,○<span class="marginnote">Of course, because the final chapter is offered entirely in his voice.</span> followed by Neville, Louis, Rhoda, Jinny, and Susan.</p>
+<h2 id="works-cited">Works Cited</h2>
+<p>Ramsay, Stephen. <em>Reading Machines</em>. Urbana: U of Illinois P, 2011. Print.</p>
+
+      </div>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript"
+	      src="http://disqus.com/forums/chrisforstersblog/embed.js">
+      </script>
+      <noscript>
+	<a href="http://chrisforstersblog.disqus.com/?url=ref">View the discussion thread.</a>
+      </noscript>
+      <a href="http://disqus.com" class="dsq-brlink">
+	blog comments powered by <span class="logo-disqus">Disqus</span>
+      </a>
+    </article>
+  </body>
+
+</html>

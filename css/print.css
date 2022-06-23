@@ -1,0 +1,67 @@
+/* Print Style for cforster.com; lovingly crafted by Chris on a Rainy Saturday in 2014 
+   4/26/14 - csf */
+
+/* Don't include things that don't make sense in a printout */
+footer, #disqus_thread, #masthead {display: none;}
+
+/* Shift marginal notes to parentheticals. */
+.marginnote:before { 
+    content: " (";
+}
+
+.marginnote:after {
+    content: ") ";
+}
+
+.marginnote {
+    color: #555;
+}
+
+body { background: white; } 
+#content { background: transparent; }
+
+h2.title {
+    font-size: 3.0 em;
+}
+
+.title:before {
+    content: "Chris Forster, "
+}
+
+
+/* This will print links out. */
+a { 
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+a:link:after { 
+    content: " <" attr(href) "> "; 
+    font-family: monospace;
+}
+
+a[href^="#"]:after {
+   content: "";
+}
+
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  max-width: 100% !important;
+  page-break-inside: avoid;
+}
+
+p {
+    margin-bottom: 0;
+    color: #444;
+    line-height: 1.5em;
+}
+
+p + p {
+    text-indent: 2em;
+    margin-top: 0;
+}
+

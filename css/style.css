@@ -1,0 +1,112 @@
+
+body {
+  margin: 0 auto;
+  width: 60%;
+  max-width: 50em;
+  padding: 4em 1em;
+  line-height: 1.5;
+  font-family: "Helvetica", "Arial", sans-serif;
+  color: #555;
+}
+
+
+.homepage {
+    font-size: 1.4rem;
+}
+
+h2 {
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+h1,
+h2,
+strong {
+  color: #333;
+}
+
+.book { font-style: italics; }
+
+code,
+pre {
+  background: #eee;
+}
+
+code {
+  padding: 2px 4px;
+  vertical-align: text-bottom;
+}
+
+pre {
+  padding: 1em;
+}
+
+p { text-indent: 0em; }
+p + p { text-indent: 2em;}
+
+time {   color: #c00; }
+
+.fa-twitter {
+    font-family: monospace;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+}
+
+.marginnote {
+    float: left;
+    margin-left: -15em;
+    width: 13em;
+    font-size: 0.7em;
+    line-height: 1.2em;
+    text-indent: 0;
+}
+
+.line-block {
+    padding-left: 5em;
+}
+.epigraph {
+    width: 50%;
+    text-align: right;
+    margin-bottom: 2em;
+    font-weight: bold;
+    text-indent: 0;
+}
+
+
+.email {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.row {
+    width: 100%;
+}
+
+.column {
+    width: 50%;
+    float: left;
+ }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+@media (max-width: 40em) {
+  .column {
+    width: 100%;
+    float:none;
+  }
+  .row {
+  }
+}

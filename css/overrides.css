@@ -1,0 +1,235 @@
+
+html { font-size: 16px; }
+
+a {
+    text-decoration: none;
+    border: none;
+}
+
+a:link		{ color: #03f; }
+a:visited	{ color: #69f; }
+a:hover		{ color: #00f; }
+a:active	{ color: #fc0; }
+
+time {
+    color: #c00;
+    line-height: 1.5em;
+}
+
+ul {
+    width: 100%;
+    list-style: circle inside;
+}
+
+li {
+    padding: 0;
+}
+#masthead { 
+    overflow: hidden;
+    border-bottom: 1px #444 solid;
+    margin-bottom: 1em;
+}
+
+#masthead h1 { 
+    font-size: 3em;
+}
+
+
+#masthead h1, h3 {
+    margin: 2px 0px 0px 0px;
+    padding: 5px 0px 0px 0px;
+    float: left;
+}
+
+#masthead h3 { 
+    color: #222;
+}
+
+#masthead h4 { 
+    margin: 0px 0px 0px 50px;
+    padding: 0px;
+}
+
+#masthead ul {
+    text-align: right;
+}
+
+#masthead li {
+    text-align: left;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+#license { 
+    clear: both;
+    color: #555;
+    line-height: 1.2em;
+    padding: 10px;
+    margin: 10px;
+}
+
+#license img {
+    vertical-align: middle;
+    padding: 5px;
+}
+
+header img {
+    display: inline;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+footer {
+    font-family: 'Lato',sans-serif;
+    width: auto;
+    clear: both;
+    color: #888;
+    font-size: 0.6em;
+    text-align: left;
+    line-height: 1em;
+}
+
+footer img {
+    display: inline;
+}
+
+#colophon {
+    text-align: left;
+}
+
+#colophon p {
+    padding: 5px;
+    text-indent: 0em;
+}
+
+#colophon .narrow {
+    font-family: 'Lato', sans-serif;
+}
+
+/* 
+ Pull Quotes
+*/
+.insertright { 
+    width: 40%;
+    float: right;
+    padding-left: 10px;
+}
+
+.insertleft { 
+    width: 40%;
+    float: left;
+    padding-right: 10px;
+}
+
+/*
+.highlight { 
+    line-height: 1em;
+    background: black;
+    font-size: 1em;
+    color: white;   
+    padding: 3px;
+    overflow: auto;
+    padding: 1em;
+    border: 1px solid;
+
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}*/
+
+code { 
+}
+
+.date {
+    /*    float: right;   */
+    /*    margin-left: -20%; */
+    /*    font-size: 0.7em; */
+}
+
+#masthead {
+}
+
+#masthead h1 {
+    font-size: 3.4em;
+}
+
+
+/* footer a:link, a:visited, #masthead a:link, a:visited { */
+/* borrowed from: http://stackoverflow.com/questions/6008324/fade-effect-on-link-hover */
+/*    -o-transition: 1s;*/
+/*    -ms-transition:1s; */
+/*    -moz-transition:1s;*/
+/*    -webkit-transition:1s; */
+/* ...and now for the proper property */
+/*    transition:1s; */
+
+/*    color: #57534A; */
+/*    text-decoration:none; */
+/* } */
+
+
+#masthead a:hover, a:active {
+		       color: red;
+		   }
+
+.email, .twitter {
+    font-family: Monaco,monospace;
+}
+
+
+blockquote { 
+
+    display:block;
+    padding: 15px 20px 15px 45px;
+    margin: 0 0 20px;
+    position: relative;
+    
+    line-height: 1.2;
+    color: #666;
+    
+    /*Borders - (Optional)*/
+    border-left: 10px solid #a00;
+    border-right: 2px solid #a00;
+    
+    /*Box Shadow - (Optional)*/
+    -moz-box-shadow: 2px 2px 15px #ccc;
+    -webkit-box-shadow: 2px 2px 15px #ccc;
+    box-shadow: 2px 2px 15px #ccc;
+}
+
+blockquote::before {
+    content: "\201C"; /*Unicode for Left Double Quote*/
+    
+    /*Font
+  font-family: Georgia, serif; */
+    font-size: 60px;
+    font-weight: bold;
+    color: #999;
+    
+    /*Positioning*/
+    position: absolute;
+    left: 10px;
+    top:5px;
+}
+
+blockquote::after {
+    /*Reset to make sure*/
+    content: "";
+}
+
+blockquote p + p {
+    text-indent: 2em;
+    margin-top: 0;
+}
+
+.epigraph {
+    width: 50%;
+    text-align: right;
+    margin-bottom: 2em;
+    text-weight: bold;
+    text-indent: 0;
+}
+
+.poetry {
+    white-space: pre;
+    padding-left: 1.5em;
+}

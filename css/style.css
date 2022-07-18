@@ -68,6 +68,15 @@ img {
     text-indent: 0;
 }
 
+.marginnote .right {
+    float: right;
+    margin-left: -15em;
+    width: 13em;
+    font-size: 0.7em;
+    line-height: 1.2em;
+    text-indent: 0;
+}
+
 .line-block {
     padding-left: 5em;
 }
@@ -78,7 +87,6 @@ img {
     font-weight: bold;
     text-indent: 0;
 }
-
 
 .email {
     font-family: monospace;
@@ -101,6 +109,23 @@ img {
   clear: both;
 }
 
+figure {
+//    margin: auto;
+    padding: 5px;
+    border: 1px gray solid;
+}
+
+figcaption {
+    font-style: italic;
+    padding: 2px;
+    text-align: center;
+}
+
+.csl-entry {
+    padding-left: 5em;
+    text-indent: -5em;
+    padding-bottom: 0.5em;
+}
 
 @media (max-width: 40em) {
   .column {
@@ -108,5 +133,8 @@ img {
     float:none;
   }
   .row {
+  }
+  .marginnote {
+      display: none;
   }
 }

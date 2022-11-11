@@ -1,0 +1,321 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Hoefler Text}
+  \setsansfont[]{Gill Sans}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={English Department Undergraduate Courses},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[paperheight=8.5in,paperwidth=5.5in,bottom=0.75in,top=0.75in,left=0.5in,right=0.5in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{multicol}
+
+
+\title{Somewhere in New Jersey\ldots{}}
+\author{}
+\date{}
+
+\begin{document}
+
+In a \href{/2013/08/teaching-dh}{previous post} on a graduate course I
+taught last Spring, I mentioned the server I ended up using a way to try
+to establish some uniformity of access to software packages and tools.
+In this post, I'll try to add a few details.
+
+\hypertarget{virtual-private-servers}{%
+\section{Virtual Private Servers}\label{virtual-private-servers}}
+
+The first thing to understand about ``the server'' is that I rented a
+\emph{VPS}, a ``virtual(ized) private server,'' rather than some shared
+space. If you don't know what that means, let me try to explain (if you
+do know what that means, you may want to move along to the next
+section).
+
+The word \emph{server} itself is one of the slipperier bits of our
+contemporary argot. It can name a number of different links in a
+relationship between one piece of software and another (to say nothing
+of the people on either end, or perhaps in between). This slipperiness
+is only compounded with the advent of \emph{virtual private servers}.
+
+Prior to virtualization, if you wanted to host a webpage, you could
+either run (or rent) your own dedicated hardware, or you go with a
+``shared hosting'' option. For most folks who run their own blog, shared
+hosting remains the obvious choice. This blog is hosted on such a shared
+host. Shared hosting relies on a few facts:{\textbf{LAMP}: that is Linux
+(an operating system to manage the hardware resources, to schedule
+processes\ldots{} you know, to turn electricity, plastic, and rare earth
+elements into a computer), Apache (the most widely used web server),
+MySQL (the most widely used database; which has its own database
+\emph{server}), and (usually) PHP (a scripting language).}
+
+\begin{itemize}
+\tightlist
+\item
+  most folks' hosting needs can be solved by a single ``stack'' of
+  common software, usually the so-called \textbf{LAMP} stack
+\item
+  most folks' blogs don't get sufficient traffic to require that much
+  hardware, and so many blogs (websites, whatever) can be ``served'' by
+  a single (``shared'') host.
+\item
+  the OS can easily separate out different users; that way, I can run
+  Wordpress and create a database, and you can run Drupal and create a
+  database, all on the same hardware, without either of us being able to
+  destroy one another's data.
+\end{itemize}
+
+The drawback to shared hosting is that you have very little control over
+the server. You usually can't, for instance, install new software,
+beyond packages of PHP scripts. Of course, for web hosting, that's no
+big deal; you don't really need to install anything beyond whatever CMS
+you want anyway. {Anyone who has had problems with a web host's version
+of PHP, or similar issues, knows that this isn't quite true.}
+
+This compromise with respect to control over the server configuration is
+a function of cost (and of course, expertise; do you really want to have
+to worry about building that ``software stack''?). To have complete
+control over a server would mean that you had a dedicated server (in
+this case, ``server'' means actual \emph{hardware}), perhaps in your
+office (in theory it could be your laptop), in an IT closet, or rented
+in a server farm somewhere. With the advent of software virtualization,
+however, this changed. With virtualization, a single piece of hardware
+can run multiple ``virtual machines''; the host system simulates another
+machine, on which you can then run software which itself doesn't really
+know the difference. (If you run Windows on a Mac with Parallels, this
+idea may be quite familiar.) You can do the same thing with a server.
+That computer that talked to the internet, and served web pages (or
+whatever), is not just a \emph{virtual} machine. And such a virtualized
+private server (a VPS, as opposed to a \emph{shared} host) reconfigures
+the costs involve, and makes it more affordable to give you more control
+over the software installed, without incurring the full cost of
+owning/renting/running an actual physical hardware server.
+
+A virtualized server is (\emph{very} significantly) cheaper than running
+your own hardware, but allows you many of the advantages of actually
+running your own hardware. It is still, in general, more expensive than
+shared hosting. To give you some sense of the cost, the lowest tier
+\href{https://www.linode.com/}{Linode} VPS is \$20/month.
+\href{https://www.digitalocean.com/pricing}{Digital Ocean's lowest tier}
+is only \$5/month.
+
+\hypertarget{a-customized-server}{%
+\section{A Customized Server}\label{a-customized-server}}
+
+Because it is so customizable, I thought a VPS could offer a solution to
+the challenge of trying to make software uniformly available to students
+enrolled in the digital humanities seminar I was teaching. With such a
+system I could give everyone access to Python and the NLTK (and its
+associated corpora) without having to ask folks to install that software
+on their own machines. I could install MALLET and R (and relevant R
+packages) and Stanford's Named Entity Recognizer and an XSLT processor.
+This was also a relatively flexible solution; if someone wanted to try
+something else, perhaps something I'd never heard of, it was in many
+easy to install it on the server.
+
+The \emph{easy} in that last sentence is a function of Linux package
+management. If you're used to installing from .EXEs (or .DMGs) you
+download from the web, the world of package management can seem arcane.
+However, for large pieces of software, package management systems are
+wonderful and can be (deceptively) simple to use. While getting
+everything up and running is a bit of a trick (you need to first install
+an operating system---about which a little more below---and then some
+basic software to let you connect to the server), installing a piece of
+software, like the R language, is as simple as typing:
+
+\{\%highlight bash \%\} sudo apt-get install r-base \{\%endhighlight
+\%\}
+
+And then, you have R installed, and you're ready to go at the command
+line. In my experience, Linux package management is often \emph{easier}
+than trying to handle software dependencies on other OSes (at least once
+you're familiar with conventions of your package management system).
+
+\emph{Easy} is also relative; if you're comfortable at the command line,
+using a package manager feels intellectually more intuitive and
+comprehensible than dragging a DMG into an ``Applications'' folder, or
+double-clicking an EXE. But if you're uncomfortable with the command
+line, this will likely feel as uncomfortable as navigating your
+filesystem or anything else.
+
+\hypertarget{server-setup}{%
+\section{Server Setup}\label{server-setup}}
+
+Before you can install packages, though you need to first install a
+base, Linux operating system. If you're unfamiliar with Linux, this may
+not be the kindest or easiest way to get acquainted with it, though the
+good folks at Linode (hardly unbiased) insist
+\href{https://www.linode.com/faq.cfm}{``If you're looking to learn,
+there is no better environment. Experiment with the different Linux
+flavors, redeploy from scratch in a matter of minutes.''}. I have spent
+too much of my life playing with Linux distros, and so this part of the
+process felt quite natural. And yet, I \emph{still} managed to make what
+I now consider a wrong choice in configuring the server. Linux comes in
+a wide array of flavors or distributions.{Technically, ``Linux'' is not
+an OS, but an OS ``kernel.'' This distinction, and what we call things,
+can get
+\href{http://en.wikipedia.org/wiki/GNU/Linux_naming_controversy}{contentious}.}
+Of the options Linode offers (Ubuntu, Arch, OpenSuse, Gentoo, CentOS,
+Slackware, Debian, Fedora) I opted for Debian. Debian has a reputation
+for being a very stable distro; and so it would be a great choice for
+running a web-server. Of course, I \emph{wasn't} running a web and so
+stability was not, in fact, my \emph{chief} concern. I probably should
+have chosen a distribution which prioritized not stability, but the ease
+and availability of new and up-to-date software packages. Arch Linux,
+with its ``rolling release'' schedule (and the operating system
+\href{http://www.mylinuxrig.com/post/11831613369/the-linux-setup-chris-forster-academic}{I
+once loved} with a passion I've not since been able to match) would have
+made more sense. It would have been \emph{easier} with Arch to install
+the most update versions of certain Python packages, etc etc. Oh well.
+Maybe next time.
+
+Once you're base OS is installed; it's time to install the basic
+packages you will need to do \emph{anything at all}. But since you now
+are responsible for a computer somewhere in New Jersey{I must say, the
+responsiveness of the Linode servers shocked me; that computer in NJ was
+consistently more responsive than my home media server. I regularly ran
+emacs sessions \emph{on the server} and found them completely
+responsive.} you need to worry about security. You don't want someone
+hijacking your VPS and using to send spam or whatever else. Linode
+offers \href{http://library.linode.com/securing-your-server}{some tips}
+and I consulted \href{http://feross.org/how-to-setup-your-linode/}{this
+page} for some advice as well. It wasn't nearly as scary as I imagined.
+I installed \texttt{fail2ban} (and left the default settings), turned
+off root log-in from ssh, and that was about it. I have (so far) had no
+problems.
+
+\hypertarget{connecting-and-interacting-with-the-server}{%
+\section{Connecting and Interacting with the
+Server}\label{connecting-and-interacting-with-the-server}}
+
+I've sort of glossed over a pretty fundamental fact; with the exception
+of RStudio server (mentioned below), the only way to interact with the
+server as I've described it is through
+\href{http://en.wikipedia.org/wiki/Secure_Shell}{SSH}; and so the only
+access you have to the server is command line access. For the most part,
+that was fine for the goals I had for the class. Command line access
+allowed people to experiment with Python and NLTK; they could run
+MALLET, and similar things. You couldn't run, say, Gephi on the server
+though.
+
+And this limitation proved frustrating for folks working with film and
+images. For one thing, moving large movie/image files back and forth to
+the server would have proved unpleasant; moreover, software like
+\href{http://rsbweb.nih.gov/ij/}{ImageJ} couldn't be installed on the
+server and had to be installed locally. (I did manage, though, to do
+some image manipulation with ImageMagick---here is every page of the
+\emph{Little Review} in a single image (a larger, \textasciitilde150M,
+image is available
+\href{https://www.dropbox.com/s/idnsh1tmkteeevu/lr.png}{here}):
+
+For folks who were interested in using \texttt{R},
+\href{http://www.rstudio.com/ide/docs/server/getting_started}{RStudio
+Server} worked \emph{wonderfully}; it allowed folks to connect to the
+server through their web browser and have an RStudio Session that looked
+something like this:
+
+While I gripe about \texttt{R}, RStudio is really excellent. If there is
+comparable server project that will let folks run python and python
+packages (including matplotlib) through a browser in a similar way,
+please, \emph{please} let me know. RStudio provides a great way to
+provide a standardized R environment with a common set of shared
+packages (and perhaps even data) available to all.
+
+There are other things one could do with sort of set-up; if you wanted
+to run an old-school Bulletin Board System or MUD, you could do it (here
+are \href{http://lunduke.com/?p=2156}{some ideas} about running a BBS
+system). {You also might look at
+\href{http://www.telnetbbsguide.com/ssh.htm}{The BBS Corner's Telnet \&
+Dial-Up BBS Guide} or \href{http://www.convolution.us/}{Convolution
+BBS}.} As a way to offer \emph{certain} pieces of software to people
+without requiring them to install them, running this server was very
+helpful. If you're doing tasks that can be scripted and which can often
+take a very long time to complete (such as topic modeling, or named
+entity extraction, or POS tagging){I would add certain types of image
+manipulation---as I did with the \emph{Little Review} example noted
+above; though as I say, shuttling the images back and forth can be
+unpleasant; this unpleasantness is partially allayed if you're scripting
+your image acquisition with a script, ``a little \texttt{wget} magic'',
+or similar ought to work.} you can set them going, disconnect from the
+server and then check on them later (using a program like
+\href{http://www.gnu.org/software/screen/}{\texttt{screen}} to make this
+easy; it's \emph{really} great to be walking to home, knowing that
+somewhere in New Jersey a computer is dutifully seeking 100 topics
+across 5000 documents).
+
+I've skipped over some of the other unglamorous, sysadminy things one
+must do: creating user accounts for each person in the class; creating a
+shared directory that everyone could read and write to; and other things
+like that. For someone comfortable at the command line, and interested
+to learn, all of that stuff is entirely manageable.
+
+\end{document}

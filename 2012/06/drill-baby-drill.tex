@@ -1,0 +1,249 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Hoefler Text}
+  \setsansfont[]{Gill Sans}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={English Department Undergraduate Courses},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[paperheight=8.5in,paperwidth=5.5in,bottom=0.75in,top=0.75in,left=0.5in,right=0.5in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{multicol}
+
+
+\title{Public Domain Editions}
+\author{}
+\date{}
+
+\begin{document}
+
+This is an extended version of the (less than) two minute ``dork short''
+or ``lightning talk'' I gave at THATCamp Virginia a while ago (this post
+has been sitting in the hopper for a while). I offer an observation, an
+anecdote, and a suggestion.
+
+\textbf{tl;dr}: I'm trying to put together an edition of Claude McKay's
+\emph{Harlem Shadows.} Would you like to help?
+
+\hypertarget{an-observation}{%
+\subsection{An Observation:}\label{an-observation}}
+
+An enormous wealth of public domain material is available on the web,
+from sources like \href{http://gutenberg.org}{Project Gutenberg} or
+\href{http://ota.ahds.ac.uk/}{The Oxford Text Archive} or
+\href{http://archive.org}{The Internet Archive} or
+\href{http://books.google.com}{Google Books} or smaller projects like
+\href{http://dl.lib.brown.edu/mjp/}{The Modernist Journals Project}.
+
+Yet, in my experience, these texts seem underused. (Am I wrong?)
+
+\hypertarget{an-anecdote}{%
+\subsection{An Anecdote:}\label{an-anecdote}}
+
+When I was a teaching assistant for UVA's twentieth-century literature
+survey a few years ago, the professors taught Claude McKay's
+\emph{Harlem Shadows}. Published in 1922, \emph{Harlem Shadows} is just
+inside the public domain.
+
+The text they used was a cheap (though still in the neighborhood of
+\$15; here it is at
+\href{http://www.amazon.com/Harlem-Shadows-Poems-Claude-Mckay/dp/1120198720/}{Amazon})
+paperback facsimile of the 1922 edition. When I opened this slight
+paperback, it looked eerily familiar.
+
+Compare:
+
+The top image is from the Google Books edition; the bottom is a scan I
+just made of the Kessinger edition. Kessinger's ``edition'' of
+\emph{Harlem Shadows} is printed from page images available at
+\href{http://books.google.com/books?id=aKTPAAAAMAAJ}{Google Books}
+(scanned, in turn, from a copy at Indiana University library). They've
+cleaned up the title page a bit, but look at the distinct pencil marks.
+That's Kessinger's business: get new ISBNs for Google Books scans and
+then sell them. (When folks first noticed Kessinger doing this a while
+ago it caused
+\href{http://productforums.google.com/forum/\#!category-topic/books/google-books-searching-and-discovering/4b8Bj0HTtxE}{some
+consternation}.)
+
+(Worth noting: there is a
+\href{http://books.google.com/books?id=EVFBAAAAYAAJ}{another copy} of
+\emph{Harlem Shadows} (scanned from a copy held at Princeton) in GBooks,
+which misidentifies Max Eastman in the author metadata; in addition to
+the two Google Books copies, archive.org has two copies;
+\href{http://www.archive.org/details/harlemshadows00mcka}{one} from the
+Library of Congress and
+\href{http://www.archive.org/details/harlemshadowspoe00mckauoft}{one}
+from the University of Toronto, all the same edition. Thoughts on easily
+breaking up those four PDFs and digitally collating them?)
+
+It seems unfortunate that right now a professor who wants to teach
+\emph{Harlem Shadows}, ends up assigning Kessinger's rather ugly
+print-out of a Google Books PDF.
+
+\hypertarget{a-suggestion}{%
+\subsection{A Suggestion:}\label{a-suggestion}}
+
+Can we do something to make public domain texts more useful? Is there a
+place for (some) scholars to take the lead here? Rather than paying
+Kessinger to print out Google Books page-scans, could we not use the (in
+this case, multiple sets of) page-scans available from a variety of
+sources to put together a lightly marked up version of the text?
+Couldn't we draw on existing bibliographies to make clear what the book
+object represented by those scans actually is. And then, from our single
+encoding, could we not export to multiple formats: PDF (by way of LaTeX,
+for folks who want to print this thing out); HTML; and ePub (etc) for
+eReaders?
+
+Such an idea is not novel; it is merely an expression of the dream of a
+markup language like TEI. Not so long ago, a proposal for a
+\href{http://neosmart.net/blog/2012/the-case-for-a-git-powered-project-gutenberg/}{``A
+Git Powered Project Gutenberg''} lead to a
+\href{http://news.ycombinator.com/item?id=3638917}{discussion on Hacker
+News} which in turn lead to a
+\href{http://groups.google.com/group/prj-alexandria}{hastily arranged
+group} (which just as quickly disarranged itself)---all focused around
+the idea of making public domain texts better. There is interest in
+improving the accessibility and usability of public domain texts and it
+isn't confined to academic literature departments.
+
+Scholars could play a key role here by helping to establish a good text
+and providing annotations and glosses or other contextual material. In
+my wilder moments I imagine scholars providing a base text which than
+then becomes the staple, raw ingredient in a variety of remix editions,
+produced for audiences varying from high school to the college
+classroom, and beyond. These texts in turn could be cut and remixed to
+produce a roll-your-own anthology.
+
+\hypertarget{an-acknowledgment-and-a-goal}{%
+\subsection{An Acknowledgment and a
+Goal:}\label{an-acknowledgment-and-a-goal}}
+
+There are some excellent reasons why \textbf{I} shouldn't be doing this.
+First, in the specific case of \emph{Harlem Shadows}, I am not a
+specialist in American, African American, or Caribbean literature in
+general, nor in Claude McKay's work in particular. Nor am I an expert in
+text markup. Nor am I sufficiently well versed in the dark
+bibliographical arts to really be handling the complexities of putting
+together a proper critical edition.
+
+With those reservations stated, I'm trying to carve some time out to
+work on this nonetheless. One's reach should exceed one's grasp, else
+what's a public domain for? But boy would I love some help.
+
+I've converted the plaintext, OCR'd version of \emph{Harlem Shadows}
+available through archive.org to a lightly marked up TEI version of that
+text. This markup itself is worthy of scrutiny; but I wanted to have
+\emph{something} to start with on the way to producing a proofread,
+bibliographically sound, TEI-version of the text; to that I'd like to
+add annotations and textual notes, as well as supplementary
+material---early reviews, maybe McKay's prose from this period, as
+relevant. Think Norton Critical Edition (minus the criticism which is
+likely too thorny a permissions matter; though I'd love to proved wrong
+on this front).
+
+To begin:
+
+\begin{itemize}
+\tightlist
+\item
+  here is a \href{http://github.com/c-forster/harlem-shadows}{github
+  repository} with my initial stab at marking up the text.
+\item
+  here is a \href{http://harlemshadows.pbworks.com}{wiki} to organize
+  future work. (Let me know if you want to be added to the wiki).
+\end{itemize}
+
+(A minor technical note: For a while I was imagining that it would be
+possible to use stand-off markup to keep text and annotation completely
+separate. This would be great for many reasons; in theory, one could
+have different sets of notes for different audiences (the high school
+versus the college class room; a reading versus a scholarly edition);
+from the little reading I've done, that seems not easily feasible at the
+moment. For software developers, however, the problem of how to combine
+constantly evolving sets of dependent texts is simply a fact of life;
+version control systems, like git, provide some help in managing this
+problem.)
+
+As a preliminary schedule: begin finalizing markup of the edition by the
+end of the summer. Continue collecting and adding supplementary material
+and annotations in the Fall. Then start working on processing the text
+out to desired formats (the
+\href{http://www.tei-c.org/Tools/Stylesheets/}{TEI Stylesheets} provide
+a great place to start); so that this time next summer, an edition of
+sorts (available in multiple formats) is done.
+
+For now I'd be interested in other folks sharing their thoughts,
+criticism, or enthusiasm. Or, better yet, take some of this material and
+fix it or fork it.
+
+\end{document}

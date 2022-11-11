@@ -1,0 +1,175 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Hoefler Text}
+  \setsansfont[]{Gill Sans}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={English Department Undergraduate Courses},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[paperheight=8.5in,paperwidth=5.5in,bottom=0.75in,top=0.75in,left=0.5in,right=0.5in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{multicol}
+
+
+\title{The Changing Index of Censorship}
+\author{}
+\date{}
+
+\begin{document}
+
+(\textbf{Jan.~17 Update:} In a truly remarkable show of solidarity, as
+you dear reader have likely noticed by now, major sites (including
+wikipedia) across the internet are mainting their protest of SOPA on
+January 18th. I've add \href{http://sopablackout.org/}{this bit of
+javascript} to show solidarity with them. Despite the shelving of the
+house bill, these sites all recognize the continued threat of SOPA,
+PIPA, or any similar legislation.)
+
+(\textbf{Jan.~16 Update:} With the news that, at least for now,
+\href{http://boingboing.net/2012/01/16/sopa-is-dead-its-evil-senate.html}{SOPA
+is shelved}, I've removed the javascript mentioned below.)
+
+Depending on when you visit this page, you may notice that a whole bunch
+of it is blacked out; that's a result of
+\href{https://github.com/dougmartin/Stop-Censorship}{this bit} of
+javascript, protesting
+\href{http://en.wikipedia.org/wiki/Stop_Online_Piracy_Act}{SOPA}. If you
+haven't heard about SOPA,
+\href{http://www.theverge.com/2011/12/22/2648219/stop-online-piracy-act-sopa-what-is-it}{here}
+is a fine place to start.
+
+As someone with an interest in the history of obscenity and censorship I
+have been impressed at how quickly groups like the
+\href{http://eff.org}{EFF} have described SOPA as a matter of censorship
+and free speech. Unlike the 1996 Communications Decency Act (I recall
+the blue ribbon GIFs it inspired well), the object of SOPA is not online
+obscenity. As these groups recognize, however, matters of ``free
+speech'' are increasingly questions of intellectual property and the
+technologies of copyright enforcement.
+
+This development is entirely consistent with the narrative offered by
+one of my favorite early-twentieth century anti-censorship tracts,
+\emph{To the Pure: A Study of Obscenity and the Censor}, co-authored by
+William Seagle and Morris Ernst (the lawyer who, a few years later,
+defended \emph{Ulysses} in front of Judge John Woolsey). \emph{To The
+Pure} outlines a political history of censorship which proceeds through
+three stages; in a section titled ``The Changing Index of Censorship''
+Ernst and Seagle explain:
+
+\begin{quote}
+With the invention of printing in the middle of the fifteenth century,
+the first condition for the censorship of literature began to be
+fulfilled: literature was on its way to popular distribution. The three
+forms of censorship which we know today began to develop: (1) the
+religious (2) the political (3) the sexual, which is the modern
+culmination. The course of evolution may be stated to be from heresy to
+treason to obscenity. The purpose of authority remains always the same,
+but the index of censorship changes. Each age produces those formulae of
+suppression which coincide with its dominant interest. (140)
+\end{quote}
+
+\textbf{Each age produces those formulae of suppression which coincide
+with its dominant interest}. The three chief categories of prohibited
+speech---blasphemy, sedition, obscenity---reflect a historical
+trajectory. Despite its obvious oversimplifications, Ernst and Seagle's
+account of this progression surprises me with its insight whenever I
+return to it.
+
+If one were to continue the history of censorship Ernst began nearly a
+century ago, it would pass through questions of intellectual property.
+Rather than obscenity, it is \emph{piracy} which is the object of
+contemporary censorship just as obscenity and blasphemy were the objects
+of a previous age's censorship regime.
+
+We certainly shouldn't ignore other, more traditional, types of
+censorship which continue to exist (particularly outside of the United
+States and western Europe); however, if \emph{blasphemy} was the object
+of censorship in (what Ernst calls) the ``Age of Faith,''
+\emph{sedition} in the ``Age of Divine Right,'' and \emph{obscenity} in
+the ``Age of Democracy,'' piracy is the crime that the censorship
+regimes of our own information age seek to control. The \emph{Index
+Librorum Prohibitorum} and Customs lists of previous eras bear a
+striking resemblance to the index of prohibited foriegn domains that
+SOPA would create.
+
+\hypertarget{works-cited}{%
+\subsection{Works Cited}\label{works-cited}}
+
+\begin{itemize}
+\tightlist
+\item
+  Ernst, Morris and William Seagle. \emph{To The Pure: A Study of
+  Obscenity and the Censor}. New York: Viking Press, 1928. Print.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,383 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Hoefler Text}
+  \setsansfont[]{Gill Sans}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={English Department Undergraduate Courses},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[paperheight=8.5in,paperwidth=5.5in,bottom=0.75in,top=0.75in,left=0.5in,right=0.5in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{multicol}
+
+
+\title{(de)Bugging Ramsay---A Last Stab at tfidf and ``The Waves''}
+\author{}
+\date{}
+
+\begin{document}
+
+In my
+\href{http://cforster.com/2013/02/reading-the-waves-with-stephen-ramsay/}{last
+post} I talked about some of the challenges of reproducing the analysis,
+offered in Stephen Ramsay's \emph{Reading Machines} of the
+distinctiveness of characters' vocabulary in Woolf's \emph{The Waves}.
+Here I follow up a bit more on why I was unable to get the same results
+Ramsay reports.
+
+\hypertarget{r-tm-and-weighttfidf}{%
+\section{\texorpdfstring{\texttt{R}, \texttt{tm}, and
+\texttt{weightTfIdf}}{R, tm, and weightTfIdf}}\label{r-tm-and-weighttfidf}}
+
+To get \texttt{R} to generate tf---idf scores, one can do the following:
+
+\{\% highlight r \%\} \# Generate a Document Term Matrix dtm \textless-
+DocumentTermMatrix(corpus, control=list(weighting=weightTfIdf)) \{\%
+endhighlight \%\}
+
+This was how I got my scores last time; and those scores didn't match
+the one's reported by Ramsay. So, one explanation is that I bollocks'd
+the data; the other is that there may be something going on under the
+hood.
+
+To explore this latter possibility, I had a look at the
+\texttt{weightTfIdf} function.{Doing so is easy; if you're in an
+\texttt{R} console, with the \texttt{tm} package loaded, just type
+\texttt{weightTfIdf} and you'll get all 26 lines of the code.} It is
+worth noting that by default, the function normalizes its scores
+according to text. That is, rather than calculating the tf-idf score
+using a raw count of the number of times a particular term appears in a
+single document (in our case, the number of times a particular character
+uses a word), it divides the raw term frequency by the total number of
+words in that document (in our case, the total number of words said by a
+character). This normalizing process explains why the scores Ramsay
+reports for Louis (12) start at 5.9, while my own scores were always
+small numbers (0.006\ldots; 0.003\ldots, etc).
+
+\hypertarget{short-digression-on-misunderstanding-the-code}{%
+\subsection{Short digression on misunderstanding the
+code}\label{short-digression-on-misunderstanding-the-code}}
+
+When I first dug into \texttt{weightTfIdf} code, I thought I discovered
+a difference in implementation:{In order to work with the data, this
+function transposes the Document Term Matrix into a Term Document
+Matrix; this means that rather than the columns being terms and the rows
+texts, the rows are terms and the columns documents. I don't know
+\emph{why} the function does this; but it does, and that explains why
+we're looking at row sums in what follows rather than column sums.}
+
+\{\% highlight r \%\} lnrs \textless- log2(nDocs(m)/rs) \{\%
+endhighlight \%\}
+
+Here we're calculating part of the \emph{tf-idf} score---the part that
+corresponds to Ramsay's log(N/df). Ignore the \texttt{log2} for a moment
+and look at that divisor, \texttt{rs}. That should represent the number
+of documents which contain a particular term. How is that calculated?
+Well, the code says:
+
+\{\% highlight r \%\} rs \textless- row\_sums(m \textgreater{} 0) \{\%
+endhighlight \%\}
+
+That \texttt{row\_sums} function comes the \texttt{slam} package; and
+when I first saw this, I thought I had my explanation. Ah ha! If the
+divisor in the logarithm is the sum of a row, then it is dividing the
+number of documents \emph{not} by the number of documents which contain
+the specified term, but by the sum of the row---that is, by the total
+occurrences of that term! Here is our explanation!
+
+``Well, but what is that comparison, \texttt{m\ \textgreater{}\ 0},
+doing in the function call,'' you ask? Good question! Well, I assumed
+that it was just a way to pass non-zero values to the \texttt{row\_sums}
+function, and went about trying to rewrite the function properly. This
+heady delirium lead to
+\href{http://stackoverflow.com/questions/15045313/changing-tf-idf-weight-function-weight-not-by-occurrences-of-term-but-by-numbe}{questions}
+on StackOverflow and wasted time. Because, of course, I totally
+misunderstood how this part of the code works.
+
+The trick is that a relational operator (like \texttt{\textgreater{}})
+on a matrix, returns a matrix with boolean values, evaluating that
+expression for each item in the matrix. So, each cell in the term
+document matrix is now either \texttt{TRUE} or \texttt{FALSE} based on
+whether the value of that term was greater than 0. So it might look
+something like this:
+
+\begin{verbatim}
+             Docs
+Terms         bernard.txt jinny.txt louis.txt neville.txt rhoda.txt susan.txt
+  absorption         TRUE     FALSE     FALSE       FALSE     FALSE     FALSE
+  abstract           TRUE     FALSE     FALSE       FALSE     FALSE     FALSE
+  abstraction       FALSE     FALSE      TRUE       FALSE     FALSE     FALSE
+  absurd             TRUE     FALSE     FALSE        TRUE     FALSE     FALSE
+  absurdity          TRUE     FALSE     FALSE        TRUE     FALSE     FALSE
+  absurdly          FALSE     FALSE     FALSE        TRUE     FALSE     FALSE
+\end{verbatim}
+
+And, since TRUE is treated as numerically equivalent to 1, and FALSE to
+0, if we were to sum these rows, we would get\ldots{} exactly what we
+were looking for; i.e., the number of documents in which the term
+appears. So, that was wasted time.
+
+Another thing to note here is that \texttt{weightTfIdf} uses
+\texttt{log2()}, the binary logarithm{Which returns the exponent to
+which you would raise 2 in order to get the specified term;
+i.e.~log2(16)=4, b/c 2\^{}4=16.}. The logarithm here works to
+essentially scale the term's frequency based on how specific the term is
+to any particular document; terms which occur in all documents will have
+\texttt{N} nearly equal to \texttt{df}, or \texttt{N/df} nearly equal to
+1. And \texttt{log(1)\ ==\ log2(1)\ ==\ 0}. That is, it will push the
+weight to (or towards) 0. Whereas a term which occurs in only one
+document will maximize \texttt{N/1}. A logarithmic function is used
+simply to dampen that effect, preventing scores linearly increasing in
+the case of terms highly specific to a single document.
+
+Does it make a difference whether one uses \texttt{log2()} or the
+natural logarithm or the base 10 ``common'' logarithm I learned back in
+school? I don't really know; I doubt it. The particular logarithmic
+function one chooses will change the \emph{score}, but it wouldn't
+change the relationship among the terms (which had the \emph{highest}
+score).
+
+\hypertarget{hand-simulations}{%
+\subsection{Hand Simulations}\label{hand-simulations}}
+
+After all that, I tried to tinker a bit to bring results into line. I
+stopped normalizing my data and tried different log functions in an
+attempt to match Ramsay's scores. Well, okay, let's take one last look.
+
+Despairing, I returned to the clearest data Ramsay gives us---the list
+of terms and scores which appears on page 12 and picked a few, to see if
+I could manage this by hand.{My high school computer science teacher (we
+switched from Pascal to C++ midway through my high school career) used
+to make us ``hand simulate'' algorithms; print out the source code, jot
+down the variable names, and debug by hand. Smart guy. (Though the
+phrase ``hand simulation'' may have been unfortunate.)} (I don't
+\emph{really} mean by hand of course. Just\ldots{} more slowly.) Here
+are the terms Ramsay lists for Louis, which have a score of 5.0021615:
+australian, beast, grained, though, wilt.
+
+So, I returned to my data.
+
+\{\% highlight r \%\} \textgreater{} rawdtm \textless-
+DocumentTermMatrix(characters) \# A basic Document Term Matrix of raw
+frequency counts \textgreater{} terms \textless-
+c(`australian',`beast',`grained',`thou',`wilt') \textgreater{}
+inspect(rawdtm{[},terms{]}) A document-term matrix (6 documents, 5
+terms)
+
+\begin{verbatim}
+Non-/sparse entries: 6/24
+Sparsity           : 80%
+Maximal term length: 10 
+Weighting          : term frequency (tf)
+
+             Terms
+Docs          australian beast grained thou wilt
+  bernard.txt          1     0       0    0    0
+  jinny.txt            0     0       0    0    0
+  louis.txt            6     6       6    6    6
+  neville.txt          0     0       0    0    0
+  rhoda.txt            0     0       0    0    0
+  susan.txt            0     0       0    0    0
+\end{verbatim}
+
+\{\% endhighlight \%\}
+
+This is already puzzling. These five terms all had the same score. Yet,
+\emph{australian} occurs six times in Louis, but across two texts; while
+the other terms occurs six time in Louis, and \emph{only} in Louis.
+
+So, back to the data. I open up the original gutenberg and search
+through it for australian. And, indeed, looks like 7 total occurrences;
+one of which is from Bernard:
+
+\begin{quote}
+I thought how Louis would mount those steps in his neat suit with his
+cane in his hand and his angular, rather detached gait. With his
+Australian accent (``My father, a banker at Brisbane'') he would come, I
+thought, with greater respect to these old ceremonies than I do, who
+have heard the same lullabies for a thousand years.
+\end{quote}
+
+Let's check \emph{grained}. I found six occurrences; all in Louis's
+speech and, as I was doing this by hand, I noticed that all those
+occurrences of \emph{grained} were in the phrase \emph{grained oak}:
+
+\begin{itemize}
+\tightlist
+\item
+  ``the grained oak panel of Mr Wickham's door''
+\item
+  ``\ldots Mr Wickham's grained oak door''
+\item
+  ``\ldots I am also one who will force himself to desert these windy
+  and moonlit territories, these midnight wanderings, and confront
+  grained oak doors.''
+\item
+  ``I, the companion of Plato, of Virgil, will knock at the grained oak
+  door.''
+\item
+  ``I brought down my fist on my master's grained oak door.''
+\item
+  ``\ldots yet brought down my fist on the grained oak door''
+\end{itemize}
+
+Why does \emph{grained} occur in Ramsay \& Steger's list, but not
+\emph{oak}? Well, maybe \emph{everyone} talks about oak trees, but only
+Louis talks about \emph{grained oak}. Back to our data:
+
+\{\% highlight r \%\}
+\textgreater inspect(rawdtm{[},c(`grained',`oak'){]}) A document-term
+matrix (6 documents, 2 terms)
+
+Non-/sparse entries: 3/9 Sparsity : 75\% Maximal term length: 7
+Weighting : term frequency (tf) Terms Docs grained oak bernard.txt 0 2
+jinny.txt 0 0 louis.txt 6 10 neville.txt 0 0 rhoda.txt 0 0 susan.txt 0 0
+\{\% endhighlight \%\}
+
+Hmm\ldots{} well, let's do the math for these three terms (the first two
+of which got the same score in Ramsay's analysis; the last of which
+didn't appear at all). For these three terms, \emph{australian},
+\emph{oak}, and \emph{grained} for Louis, we have:
+
+\{\% highlight r \%\} tf df N 1+tf\emph{(log2(N/df)) 1+tf}(log10(N/df))
+1+tf*(log(N/df)) australian 6 2 6 10.50978 3.862728 7.59164 grained 6 1
+6 16.50978 5.668909 11.75056 oak 10 2 6 16.84963 5.771213 11.98612 \{\%
+endhighlight \%\}
+
+So oak should have the \emph{highest} score of the three.
+
+Something is clearly wrong.
+
+I've returned to the raw counts, double checked them against the
+original file; and computed these things individually. I've tried to
+imagine all possible ways, but have been unable to produce any of the
+scores listed on pg 12.
+
+I suspect that there may be a problem in the Ramsay and Steger's data.
+There is significant overlap in Ramsay and Steger's results and my own.
+It is for Louis that our data is \emph{most} consistent; we share 19 of
+the top 24 terms. It is least similar for Bernard (sharing only
+\emph{4/24} terms) and Rhoda (11/24). Did the Ramsay \& Steger's
+analysis, perhaps, discard the final chapter where only Bernard talks
+(perhaps deliberately)? That would obviously \emph{greatly} change the
+Bernard data set; and, by removing so much text, it could easily affect
+the \emph{df} term for other characters, accounting for the other
+discrepancies. (But it wouldn't explain \emph{oak}.)
+
+It may very well be \emph{my} data that is the problem, but if so I've
+been unable to locate the error. I'm abandoning trying to reconcile
+these approaches to a method that \emph{should}, in principle, be
+eminently reproducible. I will though summarize the top 24 terms with
+highest tf-idf scores, using the best data I've got, and not
+normalizing.
+
+\{\% highlight r \%\} \textgreater{} louis{[}1:24{]} western oak beast
+grained thou wilt accent 23.264663 15.849625 15.509775 15.509775
+15.509775 15.509775 14.000000 boasting nile average clerks stamps
+australian boys 12.679700 12.679700 10.339850 10.339850 10.000000
+9.509775 8.000000 pitchers steel beaten boast bobbing custard eatingshop
+7.924813 7.924813 7.754888 7.754888 7.754888 7.754888 7.754888 england
+eyres ham 7.754888 7.754888 7.754888 \textgreater{} bernard{[}1:24{]}
+curiosity hampton letter phrases byron elderly heaven married 25.84963
+23.77444 23.26466 22.22858 22.18948 20.67970 20.67970 20.67970 observed
+dinner phrase willow fin simple describe self 20.67970 20.60451 20.00000
+19.01955 18.09474 18.09474 17.43459 17.43459 stick sense story nature
+pictures thinking canopy enemy 17.43459 16.37895 16.00000 15.84963
+15.84963 15.84963 15.50978 15.50978 \textgreater{} neville{[}1:24{]}
+story doomed immitigable papers byron catullus 12.000000 10.339850
+10.339850 10.339850 7.924813 7.924813 cheep perfection camel detect don
+hosepipes 7.924813 7.924813 7.754888 7.754888 7.754888 7.754888 hubbub
+loads mallet marvel squirting waits 7.754888 7.754888 7.754888 7.754888
+7.754888 7.754888 boys founder knives pocket scene shakespeare 7.000000
+6.339850 6.339850 6.339850 6.339850 6.339850 \textgreater{}
+jinny{[}1:24{]} tunnel prepared billowing game native peers quicker
+9.509775 7.924813 7.754888 7.754888 7.754888 7.754888 7.754888
+melancholy bodies band cabinet coach crag dazzle 6.339850 5.264663
+5.169925 5.169925 5.169925 5.169925 5.169925 deftly equipped eyebrows
+felled haymarket jump lockets 5.169925 5.169925 5.169925 5.169925
+5.169925 5.169925 5.169925 matthews murmured prepare 5.169925 5.169925
+5.169925 \textgreater{} rhoda{[}1:24{]} oblong dips tiger fuller swallow
+fallen steep suspended 18.094738 12.924813 11.094738 10.339850 9.509775
+8.000000 7.924813 7.924813 cliffs minnows pond terror bunch foam party
+puddle 7.754888 7.754888 7.754888 7.000000 6.339850 6.339850 6.339850
+6.339850 pools violets bow caverns chirp choke column columns 6.000000
+6.000000 5.169925 5.169925 5.169925 5.169925 5.169925 5.169925
+\textgreater{} susan{[}1:24{]} kitchen setter washing bury cart gate
+apron 15.849625 10.339850 10.339850 8.000000 7.924813 7.924813 7.754888
+seasons squirrel windowpane beds butter clean wet 7.754888 7.754888
+7.754888 6.339850 6.339850 6.339850 6.339850 blown winter baby bitten
+boil cabbages carbolic 6.000000 5.264663 5.169925 5.169925 5.169925
+5.169925 5.169925 clara cradle eggs 5.169925 5.169925 5.169925 \{\%
+endhighlight \%\}
+
+\end{document}

@@ -21,74 +21,167 @@
     <article class="post">
       <div class="frontmatter">
 	<h1 class="title">“vellum in war time”: Playing with MJP Data</h1>
+	<div class="pdflink"><a href="../playing-with-mods.pdf">Post Available in PDF</a></div>
 	<p><span class="author">Chris Forster</span> <br/> 
 	  <time class="timestamp" datetime="2011-11-06" >November 06, 2011</time>
+	</p>
+
 <!--	  <span class="length">2400 Words</span></p> -->
       </div>
 
       <div class="post-content">
 	<blockquote>
-<p>It is important that you should send the edition on extra fine paper to a certain sort of person. Only a finely got up magazine will strike the eye in certain districts. <br /> The rough paper is good enough for the other people whose names I’ve sent you. The swells in Paris won’t expect vellum in war time. <br />—Ezra Pound to Margaret Anderson, May 5, 1917 (43)</p>
+<p>It is important that you should send the edition on extra fine paper
+to a certain sort of person. Only a finely got up magazine will strike
+the eye in certain districts. <br /> The rough paper is good enough for
+the other people whose names I’ve sent you. The swells in Paris won’t
+expect vellum in war time. <br />—Ezra Pound to Margaret Anderson, May
+5, 1917 (43)</p>
 </blockquote>
 <blockquote>
-<p>there is a certain type of mind that worries about such things. Quant a moi, I am more concerned with what people say than with the ink it is written in. <br />—Pound to Anderson, May 24, 1917 (55)</p>
+<p>there is a certain type of mind that worries about such things. Quant
+a moi, I am more concerned with what people say than with the ink it is
+written in. <br />—Pound to Anderson, May 24, 1917 (55)</p>
 </blockquote>
 <blockquote>
-<p>“the public” likes a lot of paper for its money <br />—Pound to Anderson, November 12, 1917 (151)</p>
+<p>“the public” likes a lot of paper for its money <br />—Pound to
+Anderson, November 12, 1917 (151)</p>
 </blockquote>
 <h2 id="playing-with-data">Playing With Data</h2>
-<p>The most exciting thing I learned at <a href="http://msa.press.jhu.edu/conferences/msa13/index.html">MSA 13</a> was that the Modernist Journals Project has made some of its data available for tinkerers to play with; specifically, the full text and metadata records for five little magazines: <em>The Freewoman</em>, <em>The New Freewoman</em>, <em>The Egoist</em> (these latter three represent a sort of single, permutating evolution), <em>Others</em>, and <em>The Little Review</em>.</p>
-<p>The full-text is available in <em>very</em> lightly marked up TEI files (for nearly all purposes, you’d be best just stripping out the tags and treating it as plain-text) and metadata about the journals in separate <a href="http://www.loc.gov/standards/mods/">MODS</a> files (the acronym is wonderfully appropriate). Their new demo site, <a href="http://dev.stg.brown.edu/projects/mjplab/">MJP Lab</a>, shows some of the things they’ve been doing; and if you want to try some things yourself, you can grab the data yourself at the <a href="http://sourceforge.net/p/mjplab/home/Home/">MJP sourceforge page</a></p>
-<p>I was eager to get home and start playing; this post represents a belated first stab at some tinkering, in the hope of helping to start a conversation about what sorts of neat things we can do with this stuff; because if we can do some neat stuff with this stuff, hopefully the good folks at the <em>MJP</em> will continue this trend, and make their other material available. In this post I focus chiefly on a pretty crude unit of analysis—length.</p>
+<p>The most exciting thing I learned at <a
+href="http://msa.press.jhu.edu/conferences/msa13/index.html">MSA 13</a>
+was that the Modernist Journals Project has made some of its data
+available for tinkerers to play with; specifically, the full text and
+metadata records for five little magazines: <em>The Freewoman</em>,
+<em>The New Freewoman</em>, <em>The Egoist</em> (these latter three
+represent a sort of single, permutating evolution), <em>Others</em>, and
+<em>The Little Review</em>.</p>
+<p>The full-text is available in <em>very</em> lightly marked up TEI
+files (for nearly all purposes, you’d be best just stripping out the
+tags and treating it as plain-text) and metadata about the journals in
+separate <a href="http://www.loc.gov/standards/mods/">MODS</a> files
+(the acronym is wonderfully appropriate). Their new demo site, <a
+href="http://dev.stg.brown.edu/projects/mjplab/">MJP Lab</a>, shows some
+of the things they’ve been doing; and if you want to try some things
+yourself, you can grab the data yourself at the <a
+href="http://sourceforge.net/p/mjplab/home/Home/">MJP sourceforge
+page</a></p>
+<p>I was eager to get home and start playing; this post represents a
+belated first stab at some tinkering, in the hope of helping to start a
+conversation about what sorts of neat things we can do with this stuff;
+because if we can do some neat stuff with this stuff, hopefully the good
+folks at the <em>MJP</em> will continue this trend, and make their other
+material available. In this post I focus chiefly on a pretty crude unit
+of analysis—length.</p>
 <h2 id="paper-shortage">Paper Shortage</h2>
-<p>Why would the length of a little magazine change? It was <a href="http://twitter.com/tcarmody">Tim Carmody</a> who first suggested to me that a paper shortage during World War I might have had an important impact on the publishing of modernism. I can’t now locate the tweet, or series of tweets, where Tim first made this suggestion, but the inspiration with which I’ll toy for a while here is entirely Tim’s—only the mistakes and bad code are mine.</p>
-<p>It is hard to get the news from poems; but its harder to get the history of paper from books. Histories of paper are often histories of paper-making technologies. (I’d be very grateful if anyone has a good recommendation of a book addressing the history paper, including paper costs and shortages, etc in the early twentieth century.) In desperation you might turn to Google Books and find <a href="http://books.google.com/books?id=cP8fAQAAMAAJ">Paper</a>, a periodical “devoted to the manufacture, sale, and use of pulp and paper,” which reports, in September 1914 that “So far as can be observed by surface inspection the war has not affected manufacturing conditions so much as was expected a month ago. However, every day that passes brings the time of serious affection nearer.” By December 1914, “the effects of the European war upon the paper industry was demonstrated to be quite important the other day…”</p>
-<p>In a tweet I’ve long since lost, Tim points to <a href="http://books.google.com/books?id=GZMNYLgd5X4C&amp;pg=PA133&amp;lpg=PA133#v=onepage&amp;q&amp;f=false">this</a> passage from an essay on Joyce which Pound published in 1918: “Despite the War, despite the paper shortage… there is a new edition of James Joyce’s ‘A Portrait of the Artist’” (<em>Pound/Joyce</em> 133).</p>
-<p>So certainly some concern exists (at least in America) about the availability of paper.</p>
-<p>Ezra Pound’s letters to Margaret Anderson (editor of the <em>Little Review</em>) are interesting but never quite so clear (and here follows a bunch of quotations from the letters; feel free to move along). In a letter from which I quoted at the head of the this post, Pound writes that “Failing an increase in size, an improvement in paper &lt;(even a slight imp)&gt; would make a fuller use of the smaller font of type less disagreeable. That might be an intermediate move.” That Pound is talking about an increase in <em>length</em> is clear from the next comment that “We might aim for 48 pages by September” (46). An editorial note to this letter (citing, in turn, a letter from Donald Gallup) explains that “perhaps as many as twenty-five copies… of some issues of the <em>LR</em> were printed on high quality paper. This fact, Gallup notes, ’is especially important because the”rough" paper was of such bad quality that many runs of <em>The Little Review</em> have crumbled away and many libraries… have only microfilm." (47). A month later Pound wants “to go to 64 pages just as soon as it can be managed.” Throughout his letters to Anderson, Pound can be seen weighing the cost of paper against other factors; Yeats, for instance, must have a copy printed on high quality paper (“he’ll fuss and lose interest if he sees his poems on cheap paper” 55); but it is equally important to “get a good deal of actual matter into Oct, Nov, Dec. EVEN if you have to use newspaper paper” (104). (Here as so often, one longs to have Anderson’s half of the correspondence.) In a letter from December 1917, Pound insists that “official stationary for official business is pure swank. AT the present price of paper!!!” (167), suggesting that indeed paper during the period of the war was getting dear.</p>
-<p>So, did the war create a paper shortage which impacted little magazines in significant ways?</p>
+<p>Why would the length of a little magazine change? It was <a
+href="http://twitter.com/tcarmody">Tim Carmody</a> who first suggested
+to me that a paper shortage during World War I might have had an
+important impact on the publishing of modernism. I can’t now locate the
+tweet, or series of tweets, where Tim first made this suggestion, but
+the inspiration with which I’ll toy for a while here is entirely
+Tim’s—only the mistakes and bad code are mine.</p>
+<p>It is hard to get the news from poems; but its harder to get the
+history of paper from books. Histories of paper are often histories of
+paper-making technologies. (I’d be very grateful if anyone has a good
+recommendation of a book addressing the history paper, including paper
+costs and shortages, etc in the early twentieth century.) In desperation
+you might turn to Google Books and find <a
+href="http://books.google.com/books?id=cP8fAQAAMAAJ">Paper</a>, a
+periodical “devoted to the manufacture, sale, and use of pulp and
+paper,” which reports, in September 1914 that “So far as can be observed
+by surface inspection the war has not affected manufacturing conditions
+so much as was expected a month ago. However, every day that passes
+brings the time of serious affection nearer.” By December 1914, “the
+effects of the European war upon the paper industry was demonstrated to
+be quite important the other day…”</p>
+<p>In a tweet I’ve long since lost, Tim points to <a
+href="http://books.google.com/books?id=GZMNYLgd5X4C&amp;pg=PA133&amp;lpg=PA133#v=onepage&amp;q&amp;f=false">this</a>
+passage from an essay on Joyce which Pound published in 1918: “Despite
+the War, despite the paper shortage… there is a new edition of James
+Joyce’s ‘A Portrait of the Artist’” (<em>Pound/Joyce</em> 133).</p>
+<p>So certainly some concern exists (at least in America) about the
+availability of paper.</p>
+<p>Ezra Pound’s letters to Margaret Anderson (editor of the <em>Little
+Review</em>) are interesting but never quite so clear (and here follows
+a bunch of quotations from the letters; feel free to move along). In a
+letter from which I quoted at the head of the this post, Pound writes
+that “Failing an increase in size, an improvement in paper &lt;(even a
+slight imp)&gt; would make a fuller use of the smaller font of type less
+disagreeable. That might be an intermediate move.” That Pound is talking
+about an increase in <em>length</em> is clear from the next comment that
+“We might aim for 48 pages by September” (46). An editorial note to this
+letter (citing, in turn, a letter from Donald Gallup) explains that
+“perhaps as many as twenty-five copies… of some issues of the
+<em>LR</em> were printed on high quality paper. This fact, Gallup notes,
+’is especially important because the”rough” paper was of such bad
+quality that many runs of <em>The Little Review</em> have crumbled away
+and many libraries… have only microfilm.” (47). A month later Pound
+wants “to go to 64 pages just as soon as it can be managed.” Throughout
+his letters to Anderson, Pound can be seen weighing the cost of paper
+against other factors; Yeats, for instance, must have a copy printed on
+high quality paper (“he’ll fuss and lose interest if he sees his poems
+on cheap paper” 55); but it is equally important to “get a good deal of
+actual matter into Oct, Nov, Dec. EVEN if you have to use newspaper
+paper” (104). (Here as so often, one longs to have Anderson’s half of
+the correspondence.) In a letter from December 1917, Pound insists that
+“official stationary for official business is pure swank. AT the present
+price of paper!!!” (167), suggesting that indeed paper during the period
+of the war was getting dear.</p>
+<p>So, did the war create a paper shortage which impacted little
+magazines in significant ways?</p>
 <h2 id="looking-at-the-data">Looking at the Data</h2>
-<p>However dry this question may seem, it has the advantage of being answerable with the MODS data. Each issue in the <em>MJP</em> has its own MODS record containing metadata which includes the journal title, titles and authors of the texts contained in that issue, a date of publication, and a description of the physical object, including number of pages.</p>
-<p>For example, here is the beginning of the record for the first issue of the <em>Egoist</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:titleInfo&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:nonSort&gt;</span>The<span class="kw">&lt;/mods:nonSort&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:title&gt;</span>Egoist<span class="kw">&lt;/mods:title&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:subTitle&gt;</span>An Individualist Review<span class="kw">&lt;/mods:subTitle&gt;</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:partNumber&gt;</span>Vol. 1, No. 1<span class="kw">&lt;/mods:partNumber&gt;</span>   </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/mods:titleInfo&gt;</span></span>
+<p>However dry this question may seem, it has the advantage of being
+answerable with the MODS data. Each issue in the <em>MJP</em> has its
+own MODS record containing metadata which includes the journal title,
+titles and authors of the texts contained in that issue, a date of
+publication, and a description of the physical object, including number
+of pages.</p>
+<p>For example, here is the beginning of the record for the first issue
+of the <em>Egoist</em>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:titleInfo</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:nonSort</span>&gt;The&lt;/<span class="kw">mods:nonSort</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:title</span>&gt;Egoist&lt;/<span class="kw">mods:title</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:subTitle</span>&gt;An Individualist Review&lt;/<span class="kw">mods:subTitle</span>&gt; </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:partNumber</span>&gt;Vol. 1, No. 1&lt;/<span class="kw">mods:partNumber</span>&gt;   </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">mods:titleInfo</span>&gt;</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:name</span><span class="ot"> type=</span><span class="st">&quot;personal&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:namePart&gt;</span>Marsden, Dora<span class="kw">&lt;/mods:namePart&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:role&gt;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">&lt;mods:roleTerm</span><span class="ot"> authority=</span><span class="st">&quot;marcrelator&quot;</span>  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ot">                    type=</span><span class="st">&quot;text&quot;</span><span class="kw">&gt;</span>editor<span class="kw">&lt;/mods:roleTerm&gt;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/mods:role&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/mods:name&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:name</span><span class="ot"> type=</span><span class="st">&quot;personal&quot;</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:namePart</span>&gt;Marsden, Dora&lt;/<span class="kw">mods:namePart</span>&gt;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:role</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     &lt;<span class="kw">mods:roleTerm</span><span class="ot"> authority=</span><span class="st">&quot;marcrelator&quot;</span>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ot">                    type=</span><span class="st">&quot;text&quot;</span>&gt;editor&lt;/<span class="kw">mods:roleTerm</span>&gt;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">mods:role</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">mods:name</span>&gt;</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:genre</span><span class="ot"> authority=</span><span class="st">&quot;aat&quot;</span><span class="kw">&gt;</span>periodicals<span class="kw">&lt;/mods:genre&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:genre</span><span class="ot"> authority=</span><span class="st">&quot;aat&quot;</span>&gt;periodicals&lt;/<span class="kw">mods:genre</span>&gt;</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:identifier</span><span class="ot"> type=</span><span class="st">&quot;local&quot;</span> </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ot">                 displayLabel=</span><span class="st">&quot;Modernist Journals Project Identifier&quot;</span><span class="kw">&gt;</span>Egoist:1:1</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/mods:identifier&gt;</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:identifier</span><span class="ot"> type=</span><span class="st">&quot;local&quot;</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ot">                 displayLabel=</span><span class="st">&quot;Modernist Journals Project Identifier&quot;</span>&gt;Egoist:1:1</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">mods:identifier</span>&gt; </span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:originInfo&gt;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;mods:place&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;mods:placeTerm</span><span class="ot"> type=</span><span class="st">&quot;code&quot;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ot">                        authority=</span><span class="st">&quot;marccountry&quot;</span><span class="kw">&gt;</span>enk<span class="kw">&lt;/mods:placeTerm&gt;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;mods:placeTerm</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="kw">&gt;</span>London<span class="kw">&lt;/mods:placeTerm&gt;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/mods:place&gt;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;mods:publisher&gt;</span>The Egoist, Ltd.<span class="kw">&lt;/mods:publisher&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;mods:dateIssued</span><span class="ot"> keyDate=</span><span class="st">&quot;yes&quot;</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ot">                     encoding=</span><span class="st">&quot;w3cdtf&quot;</span><span class="kw">&gt;</span>1914-01-01<span class="kw">&lt;/mods:dateIssued&gt;</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/mods:originInfo&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:originInfo</span>&gt;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">mods:place</span>&gt;</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">mods:placeTerm</span><span class="ot"> type=</span><span class="st">&quot;code&quot;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ot">                        authority=</span><span class="st">&quot;marccountry&quot;</span>&gt;enk&lt;/<span class="kw">mods:placeTerm</span>&gt;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">mods:placeTerm</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span>&gt;London&lt;/<span class="kw">mods:placeTerm</span>&gt;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">mods:place</span>&gt;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">mods:publisher</span>&gt;The Egoist, Ltd.&lt;/<span class="kw">mods:publisher</span>&gt;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">mods:dateIssued</span><span class="ot"> keyDate=</span><span class="st">&quot;yes&quot;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ot">                     encoding=</span><span class="st">&quot;w3cdtf&quot;</span>&gt;1914-01-01&lt;/<span class="kw">mods:dateIssued</span>&gt;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">mods:originInfo</span>&gt;</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;mods:physicalDescription&gt;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:extent&gt;</span>20 p.; 31.5 x 21 cm<span class="kw">&lt;/mods:extent&gt;</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;mods:digitalOrigin&gt;</span>reformatted digital<span class="kw">&lt;/mods:digitalOrigin&gt;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/mods:physicalDescription&gt;</span></span></code></pre></div>
-<p>To get the information we want, we just need a little XSLT. Simple, right? Well, I don’t really know XSLT, but google and persistence will yield answers if not elegance:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode xslt"><code class="sourceCode xslt"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?xml</span> version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;<span class="kw">?&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">mods:physicalDescription</span>&gt;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:extent</span>&gt;20 p.; 31.5 x 21 cm&lt;/<span class="kw">mods:extent</span>&gt;</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">mods:digitalOrigin</span>&gt;reformatted digital&lt;/<span class="kw">mods:digitalOrigin</span>&gt;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">mods:physicalDescription</span>&gt;</span></code></pre></div>
+<p>To get the information we want, we just need a little XSLT. Simple,
+right? Well, I don’t really know XSLT, but google and persistence will
+yield answers if not elegance:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode xslt"><code class="sourceCode xslt"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?</span><span class="kw">xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;ISO-8859-1&quot;</span><span class="fu">?&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;</span><span class="bu">xsl:stylesheet</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">xmlns:xsl=</span><span class="st">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span></span>
@@ -104,35 +197,137 @@
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/</span><span class="bu">xsl:template</span><span class="kw">&gt;</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/</span><span class="bu">xsl:stylesheet</span><span class="kw">&gt;</span></span></code></pre></div>
-<p>The “xmlns:mods=”http://www.loc.gov/mods/v3" line is necessary to let XSLT know about the MODS namespace (you get an error otherwise; trust me); we declare an output method of text (we’ll be essentially generating an self-styled text data file; you could output xml or html). Then we match the root element, and select just the data we want, in this case the journal title, the volume and number information, the date, and then the “extent” which is the size and number of pages. If you’ve noticed that ugliness in the last select statement, it’s because I’m using the <em>concat[enate]</em> function to manually add a newline character entity at the end, so that we get one line of output per issue. You may also have noticed that each of these fields is separated by a double colon. The more obvious field delimited—a comma—would cause a problem here since the “extent” field, for instance, has commas within it. So the double colons will make life easier.</p>
-<p>(Yeah, this is ugly; if you have tips on a more elegant way of doing this, I’m all ears).</p>
-<p>Use xsltproc with this stylesheet on the MODS file for the first issue of the Egoist and the output looks like this:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Egoist::Vol. 1, No. 1::1914-01-01::20 p.; 31.5 x 21 cm</span></code></pre></div>
-<p>But if you’ve downloaded all the MODS files and unzipped them in a single directory, then a command like <code>xsltproc extract.xsl *.xml &gt; total.dat</code> will get the data from everything; and indeed, you can find all data from all the freely accessible journals in a <a href="https://docs.google.com/spreadsheet/ccc?key=0Aqxybvy6W0jedE5QczhNYTdVVXFua2k3cnZtcmh2SUE">Google Doc</a> (note that the Google Doc importer seems to have gotten a bit confused by the dates).</p>
-<p>This work flow makes it easy to add new data as it becomes available; just place it in the directory, rerun xsltproc… and there you go.</p>
+<p>The “xmlns:mods=”http://www.loc.gov/mods/v3” line is necessary to let
+XSLT know about the MODS namespace (you get an error otherwise; trust
+me); we declare an output method of text (we’ll be essentially
+generating an self-styled text data file; you could output xml or html).
+Then we match the root element, and select just the data we want, in
+this case the journal title, the volume and number information, the
+date, and then the “extent” which is the size and number of pages. If
+you’ve noticed that ugliness in the last select statement, it’s because
+I’m using the <em>concat[enate]</em> function to manually add a newline
+character entity at the end, so that we get one line of output per
+issue. You may also have noticed that each of these fields is separated
+by a double colon. The more obvious field delimited—a comma—would cause
+a problem here since the “extent” field, for instance, has commas within
+it. So the double colons will make life easier.</p>
+<p>(Yeah, this is ugly; if you have tips on a more elegant way of doing
+this, I’m all ears).</p>
+<p>Use xsltproc with this stylesheet on the MODS file for the first
+issue of the Egoist and the output looks like this:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Egoist::Vol. 1, No. 1::1914-01-01::20 p.; 31.5 x 21 cm</span></code></pre></div>
+<p>But if you’ve downloaded all the MODS files and unzipped them in a
+single directory, then a command like <code>xsltproc extract.xsl *.xml
+&gt; total.dat</code> will get the data from everything; and indeed, you
+can find all data from all the freely accessible journals in a <a
+href="https://docs.google.com/spreadsheet/ccc?key=0Aqxybvy6W0jedE5QczhNYTdVVXFua2k3cnZtcmh2SUE">Google
+Doc</a> (note that the Google Doc importer seems to have gotten a bit
+confused by the dates).</p>
+<p>This work flow makes it easy to add new data as it becomes available;
+just place it in the directory, rerun xsltproc… and there you go.</p>
 <h2 id="paper-and-the-war">Paper and the War</h2>
-<p>You could just peruse this list to see that, for example, <em>The Egoist</em> does seem to get shorter during the war years. In late 1914 it drops from 20 to 16 pages, and then drops again to 12 pages in 1918 before returning to 16 pages for its last year in print, 1919. (Maybe everyone already knew this; maybe, among specialists in <em>The Egoist</em> this shortening has a well known explanation. Anyone?)</p>
-<p>Since I’m used to doing things with <a href="http://processing.org">processing</a>, I’ll offer this rather rudimentary visualization of changes in length of all five journals for which data is available. (I’m doing something wrong in the main <code>draw()</code> loop so that the fonts are coming out ugly, but you get the idea):</p>
+<p>You could just peruse this list to see that, for example, <em>The
+Egoist</em> does seem to get shorter during the war years. In late 1914
+it drops from 20 to 16 pages, and then drops again to 12 pages in 1918
+before returning to 16 pages for its last year in print, 1919. (Maybe
+everyone already knew this; maybe, among specialists in <em>The
+Egoist</em> this shortening has a well known explanation. Anyone?)</p>
+<p>Since I’m used to doing things with <a
+href="http://processing.org">processing</a>, I’ll offer this rather
+rudimentary visualization of changes in length of all five journals for
+which data is available. (I’m doing something wrong in the main
+<code>draw()</code> loop so that the fonts are coming out ugly, but you
+get the idea):</p>
 <p><img src="/images/mjp-mods.png" /></p>
-<p>Only three of the five journals are being published during the First World War. Both <em>The Little Review</em> and <em>Others</em> are not nearly so regular as <em>The Egoist</em>. Nevertheless, if you tilt you head, there does seem to be a general decline in journal length during the war; but really we’d want more data before we made anything of this.</p>
+<p>Only three of the five journals are being published during the First
+World War. Both <em>The Little Review</em> and <em>Others</em> are not
+nearly so regular as <em>The Egoist</em>. Nevertheless, if you tilt you
+head, there does seem to be a general decline in journal length during
+the war; but really we’d want more data before we made anything of
+this.</p>
 <h2 id="images">Images</h2>
-<p>Of course, one of the reasons I wanted to share even these rather incomplete and ugly results is that once you start tinkering, its hard to stop. Consider this: if paper is getting expensive, you might begin to try to fit more on a single page. Just to see whether I could do it, I decided to try to compare the page layouts of <em>The Egoist</em> when it was a full 20 pages (in 1914) to the shorter, 12 page <em>Egoist</em> of 1915. (I focus on <em>The Egoist</em> here because the shifts in its length created a clear opportunity for comparison.)</p>
-<p>There would be other ways to look into this (including doing word counts on the full text files). But here is one thing you might try: first, grab the complete PDFs of a few issues from Vol 1 (1914) and Vol 5 (1915) of <em>The Egoist</em>. Without too much thought I got Vol 1, issues 1–5 and Vol 5, issues 1–5. The wonderful tool <a href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk</a> has a “burst” function will separate a pdf into individual pages. These, in turn can easily be turned into individual PNG page images, using <a href="http://www.imagemagick.org/script/index.php">imagemagick</a>. Indeed, imagemagick is really the secret sauce here.</p>
-<p>After that, we have two directories containing page images, one for the Vol 1 issues and one for the Volume 5 issues. Imagemagick has a <a href="http://www.imagemagick.org/Usage/layers/#evaluate-sequence">function that will “average”</a> a set of images; imagine, for instance, taking 50 images setting each to 2% transparency and then stacking them all together so that you have a single page. The trick is that the images have to all be the <em>exact</em> same size for the average function to work (it is comparing the same pixel location across multiple images, so size is key). That is easy enough with imagemagick as well. To get all the images in a directory the same size: <code> convert *.png -size 620x960! </code></p>
-<p>The trick to that command is the exclamation point at the end (which has to be escaped in most circumstances, hence the slash) which tells imagemagick to <em>not</em> preserve the image’s original aspect ratio. This is crucial because for average to work the images must all be identical (otherwise, after watching your CPU chug away at 100% for five minutes, it will throw an error and leave a bunch of useless files in your directory). This will introduce some very minor distortion into the images, but it is a small price to pay (so long as you’re comparing images which are all <em>very nearly</em> identical in size to begin with). Once you’ve got your directory of images, all properly resized, here is the magic command (thanks to the <a href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&amp;t=19754">kind folks</a> on the imagemagick forum):</p>
-<p><code> convert Vol1*.png -evaluate-sequence mean average_page.png </code></p>
+<p>Of course, one of the reasons I wanted to share even these rather
+incomplete and ugly results is that once you start tinkering, its hard
+to stop. Consider this: if paper is getting expensive, you might begin
+to try to fit more on a single page. Just to see whether I could do it,
+I decided to try to compare the page layouts of <em>The Egoist</em> when
+it was a full 20 pages (in 1914) to the shorter, 12 page <em>Egoist</em>
+of 1915. (I focus on <em>The Egoist</em> here because the shifts in its
+length created a clear opportunity for comparison.)</p>
+<p>There would be other ways to look into this (including doing word
+counts on the full text files). But here is one thing you might try:
+first, grab the complete PDFs of a few issues from Vol 1 (1914) and Vol
+5 (1915) of <em>The Egoist</em>. Without too much thought I got Vol 1,
+issues 1–5 and Vol 5, issues 1–5. The wonderful tool <a
+href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk</a> has
+a “burst” function will separate a pdf into individual pages. These, in
+turn can easily be turned into individual PNG page images, using <a
+href="http://www.imagemagick.org/script/index.php">imagemagick</a>.
+Indeed, imagemagick is really the secret sauce here.</p>
+<p>After that, we have two directories containing page images, one for
+the Vol 1 issues and one for the Volume 5 issues. Imagemagick has a <a
+href="http://www.imagemagick.org/Usage/layers/#evaluate-sequence">function
+that will “average”</a> a set of images; imagine, for instance, taking
+50 images setting each to 2% transparency and then stacking them all
+together so that you have a single page. The trick is that the images
+have to all be the <em>exact</em> same size for the average function to
+work (it is comparing the same pixel location across multiple images, so
+size is key). That is easy enough with imagemagick as well. To get all
+the images in a directory the same size: <code> convert *.png -size
+620x960! </code></p>
+<p>The trick to that command is the exclamation point at the end (which
+has to be escaped in most circumstances, hence the slash) which tells
+imagemagick to <em>not</em> preserve the image’s original aspect ratio.
+This is crucial because for average to work the images must all be
+identical (otherwise, after watching your CPU chug away at 100% for five
+minutes, it will throw an error and leave a bunch of useless files in
+your directory). This will introduce some very minor distortion into the
+images, but it is a small price to pay (so long as you’re comparing
+images which are all <em>very nearly</em> identical in size to begin
+with). Once you’ve got your directory of images, all properly resized,
+here is the magic command (thanks to the <a
+href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&amp;t=19754">kind
+folks</a> on the imagemagick forum):</p>
+<p><code> convert Vol1*.png -evaluate-sequence mean average_page.png
+</code></p>
 <p>When all that’s done you get something which looks like this:</p>
 <p><img src="/images/comparison_sm.png" /></p>
-<p>Nothing revolutionary; but sort of interesting. Note, for instance, that you can more easily make out the “Egoist” logo in the Volume 5 image, which makes sense—since each issue of the Volume 5 is shorter, the title page represents a larger proportion of the total set of pages.</p>
+<p>Nothing revolutionary; but sort of interesting. Note, for instance,
+that you can more easily make out the “Egoist” logo in the Volume 5
+image, which makes sense—since each issue of the Volume 5 is shorter,
+the title page represents a larger proportion of the total set of
+pages.</p>
 <p><img src="/images/alley_comparison.png" /></p>
-<p>What <em>may</em> be interesting is that the alley (the gap between the two columns of text) seems to be narrower in Volume 5 than in Volume 1 (it is a little difficult to see here; check the originals below if you’re curious; maybe I’m seeing things); does this suggest that rising paper costs during the war folks to squeeze more text onto each page? (What about the margins? It is hard to tell, but the margins too may be slightly smaller in the Volume 5 image).</p>
-<p>If you want to can see the original averages: <a href="/images/Vol1-average.png">Volume 1</a> and <a href="/images/Vol5-average.png">Volume 5</a>. <strong>Warning, the files are ~2.7 megabytes</strong>.</p>
-<p>When I get a moment, I’ll be trying to do some other things with this data. More data from other little magazines might shed light on changes in the length of little magazines during the war, at which point it would make sense to return to the journals themselves.</p>
-<h2 id="concluding-methodological-postscript">Concluding Methodological Postscript</h2>
-<p>I’ve made this point before, but the kludgy, tinkering series of things I did with the data is not the product of using any one tool. PDFTK, ImageMagick, processing, and XSLT were all thrown together. Rather than trying to imagine a single tool to rule them all, I think this sort of flexible tool chain is really the way to go. A little programming, a little data manipulation, and some command line tools can really go a long way.</p>
+<p>What <em>may</em> be interesting is that the alley (the gap between
+the two columns of text) seems to be narrower in Volume 5 than in Volume
+1 (it is a little difficult to see here; check the originals below if
+you’re curious; maybe I’m seeing things); does this suggest that rising
+paper costs during the war folks to squeeze more text onto each page?
+(What about the margins? It is hard to tell, but the margins too may be
+slightly smaller in the Volume 5 image).</p>
+<p>If you want to can see the original averages: <a
+href="/images/Vol1-average.png">Volume 1</a> and <a
+href="/images/Vol5-average.png">Volume 5</a>. <strong>Warning, the files
+are ~2.7 megabytes</strong>.</p>
+<p>When I get a moment, I’ll be trying to do some other things with this
+data. More data from other little magazines might shed light on changes
+in the length of little magazines during the war, at which point it
+would make sense to return to the journals themselves.</p>
+<h2 id="concluding-methodological-postscript">Concluding Methodological
+Postscript</h2>
+<p>I’ve made this point before, but the kludgy, tinkering series of
+things I did with the data is not the product of using any one tool.
+PDFTK, ImageMagick, processing, and XSLT were all thrown together.
+Rather than trying to imagine a single tool to rule them all, I think
+this sort of flexible tool chain is really the way to go. A little
+programming, a little data manipulation, and some command line tools can
+really go a long way.</p>
 <h3 id="works-cited">Works Cited</h3>
 <ul>
-<li>Pound, Ezra. <em>Pound / The Little Review: The Letters of Ezra Pound to Margaret Anderson</em>. Ed. Thomas L. Scott, et al. New York: New Directions, 1988. Print.</li>
+<li>Pound, Ezra. <em>Pound / The Little Review: The Letters of Ezra
+Pound to Margaret Anderson</em>. Ed. Thomas L. Scott, et al. New York:
+New Directions, 1988. Print.</li>
 </ul>
 
       </div>
